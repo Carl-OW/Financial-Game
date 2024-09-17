@@ -1,5 +1,5 @@
 import DrawingCanvas from "./DrawingCanvas/DrawingCanvas";
-import PopulationGrowthGraph from "./PopulationGrowthGraph/PopulationGrowthGraph";
+import Graph from "./Graph/Graph";
 
 import styles from "./graphview.module.scss";
 import { data } from "./db/population";
@@ -15,7 +15,7 @@ export const GraphView = () => {
     <>
       <div className={styles.graphArea}>
         <div className={styles.graph}>
-          <PopulationGrowthGraph heightChange={heightChange} data={data} />
+          <Graph heightChange={heightChange} data={data} />
         </div>
         <div className={styles.drawArea}>
           <DrawingCanvas graphHeight={graphHeight} />

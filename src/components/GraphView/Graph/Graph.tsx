@@ -32,10 +32,7 @@ type GraphProps = {
   heightChange: (val: number) => void;
 };
 
-const PopulationGrowthGraph: React.FC<GraphProps> = ({
-  data,
-  heightChange,
-}) => {
+const Graph: React.FC<GraphProps> = ({ data, heightChange }) => {
   const chartRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -97,4 +94,4 @@ const PopulationGrowthGraph: React.FC<GraphProps> = ({
   );
 };
 
-export default PopulationGrowthGraph;
+export default Graph;
