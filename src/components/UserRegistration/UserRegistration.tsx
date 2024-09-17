@@ -1,16 +1,7 @@
 import React, { FormEvent } from "react";
 import './UserRegistration.css'
+import { addToLocalStorage } from '../../lib/localStorage';
 
-function getFromLocalStorage(key: string): Storage {
-  const stored = localStorage.getItem(key)
-  return stored ? JSON.parse(stored) : {}
-}
-
-function addToLocalStorage(key: string, data: Storage){
-  const localStorageObject = getFromLocalStorage(key)
-
-  localStorage.setItem(key, JSON.stringify({...localStorageObject, ...data}))
-}
 
 function handleSubmit(event: FormEvent<HTMLFormElement>) {
   event.preventDefault()
@@ -29,19 +20,11 @@ const UserRegistration: React.FC = () => {
       </input>
       <input type='email' id='email' name='email'>
       </input>
+      <input type='number' id='score' name='score'>
+      </input>
       <button>HELO</button>
     </form>
   </div>)
 }
 
 export default UserRegistration
-
-type GameData = {
-  name: string
-  email: string
-  score: number
-}
-
-type Storage = {
-  [key: string]: GameData
-}
