@@ -2,7 +2,7 @@ import background1 from "./assets/background1.jpg";
 import "./App.css";
 import { useState } from "react";
 import { GraphView } from "./components/GraphView/GraphView";
-import { Quiz } from "./components/Quiz/Quiz";
+import Quiz from "./components/Quiz/Quiz";
 
 function App() {
   const [view, setView] = useState("home");
