@@ -1,11 +1,12 @@
 import "./App.css";
-import DrawingCanvas from "./components/DrawingCanvas";
+import background1 from "./assets/background1.jpg";
 
 function App() {
   return (
-    <>
-      <DrawingCanvas />
-    </>
+    <div
+      className="App"
+      style={{ backgroundImage: `url(${background1})` }}
+    ></div>
   );
 }
 
