@@ -4,11 +4,16 @@ interface Position {
   x: number;
   y: number;
 }
+interface DrawingCanvasProps {
+  graphHeight: number;
+}
 
-const DrawingCanvas: React.FC = () => {
+const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ graphHeight }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [drawnPositions, setDrawnPositions] = useState<Position[]>([]);
   const [matrixOutput, setMatrixOutput] = useState<string>("");
+  const [background, setBackground] = useState<boolean>(true);
+  const [drawingMode, setDrawingMode] = useState<boolean>(true);
 
   const isDrawing = useRef<boolean>(false);
 
@@ -27,6 +32,9 @@ const DrawingCanvas: React.FC = () => {
 
   // Draw on the canvas
   const draw = (e: MouseEvent<HTMLCanvasElement>) => {
+    if (!drawingMode) {
+      return;
+    }
     if (!isDrawing.current) return;
 
     const canvas = canvasRef.current;
@@ -39,9 +47,9 @@ const DrawingCanvas: React.FC = () => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 4;
     ctx.lineCap = "round";
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = "#00824d";
 
     ctx.lineTo(x, y);
     ctx.stroke();
@@ -54,6 +62,8 @@ const DrawingCanvas: React.FC = () => {
 
   // Convert drawn positions to matrix
   const convertToMatrix = () => {
+    setBackground(false);
+    setDrawingMode(false);
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -79,29 +89,66 @@ const DrawingCanvas: React.FC = () => {
     console.log(matrix);
   };
 
+  const cleanCanvas = () => {
+    const ctx = canvasRef.current?.getContext("2d");
+
+    if (ctx && canvasRef.current) {
+      // Clear the entire canvas
+      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    } else {
+      console.error("Failed to get 2D rendering context");
+    }
+  };
+
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
+    <div style={{ position: "relative", width: "400px" }}>
       <canvas
         ref={canvasRef}
         width="400"
-        height="400"
-        style={{ border: "1px solid black", cursor: "crosshair" }}
+        height={graphHeight}
+        style={{
+          border: "4px dashed black",
+          cursor: drawingMode ? "crosshair" : "",
+          background: background ? "white" : "none",
+          position: "absolute",
+          top: "0",
+          right: "0",
+        }}
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={stopDrawing}
         onMouseOut={stopDrawing}
       />
-      <button
-        style={{ marginTop: "10px", padding: "10px 20px", fontSize: "16px" }}
-        onClick={convertToMatrix}
-      >
-        Convert to Matrix
-      </button>
-      <pre style={{ marginTop: "20px", whiteSpace: "pre-wrap" }}>
-        {matrixOutput}
-      </pre>
+      {drawingMode && (
+        <div style={{ top: 0, left: 0, position: "absolute", display: "flex" }}>
+          <button
+            style={{
+              marginTop: "10px",
+              fontSize: "16px",
+              border: "1px solid black",
+              marginRight: "2px",
+              padding: "10px",
+              top: 0,
+              left: 0,
+              display: "block",
+            }}
+            onClick={convertToMatrix}
+          >
+            ✅
+          </button>
+          <button
+            style={{
+              marginTop: "10px",
+              fontSize: "16px",
+              padding: "10px",
+              border: "1px solid black",
+            }}
+            onClick={cleanCanvas}
+          >
+            ❌
+          </button>
+        </div>
+      )}
     </div>
   );
 };

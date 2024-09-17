@@ -29,9 +29,23 @@ type DataPoint = {
 
 type GraphProps = {
   data: DataPoint[];
+  heightChange: (val: number) => void;
 };
 
-const PopulationGrowthGraph: React.FC<GraphProps> = ({ data }) => {
+const PopulationGrowthGraph: React.FC<GraphProps> = ({
+  data,
+  heightChange,
+}) => {
+  const chartRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const chart = chartRef.current?.chartInstance ?? chartRef.current;
+
+    if (chart && chart.chartArea) {
+      const chartArea = chart.chartArea;
+      heightChange(chartArea.bottom - chartArea.top);
+    }
+  }, []);
   // Prepare the data for the chart
   const chartData = {
     labels: data.map((point) => point.year), // X-axis labels (years)
@@ -78,7 +92,7 @@ const PopulationGrowthGraph: React.FC<GraphProps> = ({ data }) => {
 
   return (
     <div style={{ width: "800px", height: "400px" }}>
-      <Line data={chartData} options={chartOptions} />
+      <Line ref={chartRef} data={chartData} options={chartOptions} />
     </div>
   );
 };
