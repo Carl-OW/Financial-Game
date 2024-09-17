@@ -18,7 +18,6 @@ p {
   text-align: center;
   font-size: 1.2rem;
   color: #000;
-  /* Ensure the question text is black and visible */
 }
 
 .options-container {
@@ -32,7 +31,26 @@ p {
   border: 2px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
-  color:#000;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  color: #333;
+}
+
+.option.correct {
+  border-color: green;
+  /* Correct option outline green */
+  background-color: #d4edda;
+}
+
+.option.incorrect {
+  border-color: red;
+  /* Incorrect option outline red */
+  background-color: #f8d7da;
+}
+
+.option:hover {
+  border-color: #999;
+  background-color: #f1f1f1;
 }
 
 .next-button {
