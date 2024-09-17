@@ -10,6 +10,7 @@ function App() {
   return (
     <>
       <button onClick={() => setView("graphview")}>Go to graphview</button>
+      <button onClick={() => setView("quizview")}>Go to quizview</button>
       {view === "home" && (
         <div
           className="App"
@@ -17,7 +18,7 @@ function App() {
         ></div>
       )}
       {view === "graphview" && <GraphView />}
-      <Quiz></Quiz>
+      {view === "quizview" && <Quiz></Quiz>}
     </>
   );
 }
