@@ -7,6 +7,10 @@
   border-radius: 8px;
   background-color: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center content horizontally */
 }
 
 h2 {
@@ -16,7 +20,7 @@ h2 {
 
 p {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.7rem;
   color: #000;
 }
 
@@ -24,6 +28,7 @@ p {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 .option {
@@ -61,8 +66,20 @@ p {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  align-self: center;
+  /* Center button within the container */
 }
 
 .next-button:hover {
   background-color: #0056b3;
+}
+
+.question-text {
+  font-weight: bold;
+  font-size: 1.5rem;
+  /* Make the text larger */
+  color: #1a9d49;
+  /* Green color */
+  text-align: center;
+  /* Optional: center the text */
 }

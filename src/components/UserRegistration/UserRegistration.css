@@ -8,6 +8,7 @@
   grid-template-areas: 
   "name"
   "email"
+  "score"
   "button"
 }
 #name  {
@@ -17,7 +18,9 @@
   grid-area: email;
   background-color: hotpink;
 }
+#score {
+  grid-area: score;
+}
 button {
   grid-area: button;
-
 }
