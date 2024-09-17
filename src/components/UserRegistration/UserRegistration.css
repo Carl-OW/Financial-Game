@@ -1,0 +1,23 @@
+.formContainer {
+  margin: 0 auto;
+  max-width: 600px;
+}
+#signupForm {
+  display: grid;
+  row-gap: 15px;
+  grid-template-areas: 
+  "name"
+  "email"
+  "button"
+}
+#name  {
+  grid-area: name;
+}
+#email {
+  grid-area: email;
+  background-color: hotpink;
+}
+button {
+  grid-area: button;
+
+}
