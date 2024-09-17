@@ -116,7 +116,7 @@ function Quiz() {
 
   return (
     <div className="quiz-container">
-      <h2>Theme: {question.theme}</h2> {/* Display the theme of the question */}
+      <h2>Tema: {question.theme}</h2> {/* Display the theme of the question */}
       <p>{question.question}</p>
       <div className="options-container">
         {randomizedOptions.map(([key, value]) => (
