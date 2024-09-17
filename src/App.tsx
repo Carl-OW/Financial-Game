@@ -17,6 +17,7 @@ function App() {
         ></div>
       )}
       {view === "graphview" && <GraphView />}
+      <Quiz></Quiz>
     </>
   );
 }
