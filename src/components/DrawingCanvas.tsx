@@ -83,7 +83,6 @@ const DrawingCanvas: React.FC = () => {
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <h1>Draw on the Canvas</h1>
       <canvas
         ref={canvasRef}
         width="400"
