@@ -1,11 +1,26 @@
-#root {
-  max-width: 1280px;
-  width: 100%;
-}
 .App {
-  background-size: cover;
-  background-position: center;
+  position: relative;
+  /* Ensure it stays relative to the viewport */
   width: 100vw;
   height: 100vh;
-  margin: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.quiz-container {
+  position: absolute;
+  /* Position the quiz on top of the background */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Center it */
+  z-index: 10;
+  /* Make sure the quiz is above the background */
+  background-color: rgba(255, 255, 255, 0.8);
+  /* Slight transparency to stand out on the background */
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
