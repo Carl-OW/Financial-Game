@@ -1,6 +1,8 @@
 import "./App.css";
 import DrawingCanvas from "./components/DrawingCanvas";
 import PopulationGrowthGraph from "./components/GraphCanvas/PopulationGrowthGraph";
+import background1 from "./assets/background1.jpg";
+
 import styles from "./app.module.scss";
 const data = [
   { year: 1950, populationGrowth: 0.93 },
@@ -82,6 +84,10 @@ const data = [
 function App() {
   return (
     <>
+      <div
+        className="App"
+        style={{ backgroundImage: `url(${background1})` }}
+      ></div>
       <div className={styles.graphArea}>
         <div className={styles.graph}>
           <PopulationGrowthGraph data={data} />
