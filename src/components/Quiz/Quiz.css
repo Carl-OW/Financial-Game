@@ -20,7 +20,7 @@ h2 {
 
 p {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.7rem;
   color: #000;
 }
 
@@ -72,4 +72,14 @@ p {
 
 .next-button:hover {
   background-color: #0056b3;
+}
+
+.question-text {
+  font-weight: bold;
+  font-size: 1.5rem;
+  /* Make the text larger */
+  color: #1a9d49;
+  /* Green color */
+  text-align: center;
+  /* Optional: center the text */
 }
