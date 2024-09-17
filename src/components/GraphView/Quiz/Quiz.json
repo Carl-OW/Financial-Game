@@ -1,0 +1,124 @@
+{
+  "themes": [
+    {
+      "theme": "Befolkning",
+      "questions": [
+        {
+          "question": "Hvor mange personer bor det i Norge? (2024)",
+          "options": {
+            "a": "4,2 mill.",
+            "b": "5,6 mill.",
+            "c": "5,8 mill.",
+            "d": "7,1 mill."
+          },
+          "correct_answer": "b"
+        }
+      ]
+    },
+    {
+      "theme": "Utdanning",
+      "questions": [
+        {
+          "question": "Hvor stor andel har høyere utdanning? (2023)",
+          "options": {
+            "a": "10,5 %",
+            "b": "25,0 %",
+            "c": "30,2 %",
+            "d": "37,4 %"
+          },
+          "correct_answer": "d"
+        }
+      ]
+    },
+    {
+      "theme": "Arbeid",
+      "questions": [
+        {
+          "question": "Når var arbeidsledigheten på topp? (1980-2023)",
+          "options": {
+            "a": "1993",
+            "b": "2009",
+            "c": "2020",
+            "d": "2023"
+          },
+          "correct_answer": "a"
+        }
+      ]
+    },
+    {
+      "theme": "Inntekt",
+      "questions": [
+        {
+          "question": "Hva er median inntekt etter skatt for hosholdninger? (2022)",
+          "options": {
+            "a": "280 200",
+            "b": "590 400",
+            "c": "666 700",
+            "d": "895 200"
+          },
+          "correct_answer": "b"
+        }
+      ]
+    },
+    {
+      "theme": "Helse",
+      "questions": [
+        {
+          "question": "Hva er forventet levealder, begge kjønn? (2023)",
+          "options": {
+            "a": "83 år",
+            "b": "88 år",
+            "c": "89 år",
+            "d": "95 år"
+          },
+          "correct_answer": "a"
+        }
+      ]
+    },
+    {
+      "theme": "Økonomi",
+      "questions": [
+        {
+          "question": "Hvilket land eksporterer Norge mest til? (2023)",
+          "options": {
+            "a": "Sveits",
+            "b": "Nederland",
+            "c": "Tyskland",
+            "d": "Storbritannia"
+          },
+          "correct_answer": "d"
+        }
+      ]
+    },
+    {
+      "theme": "Miljø",
+      "questions": [
+        {
+          "question": "Hvor mange tonn CO2(-ekvivalenter) slipper Norge ut? (2023)",
+          "options": {
+            "a": "48,7 mill.",
+            "b": "51,9 mill.",
+            "c": "75,2 mill.",
+            "d": "128,2 mill."
+          },
+          "correct_answer": "a"
+        }
+      ]
+    },
+    {
+      "theme": "Priser",
+      "questions": [
+        {
+          "question": "Hvor mye steg prisene i 2023?",
+          "options": {
+            "a": "0,5 %",
+            "b": "2,5 %",
+            "c": "5,5 %",
+            "d": "9,5 %"
+          },
+          "correct_answer": "c"
+        }
+      ]
+    }
+  ]
+}
