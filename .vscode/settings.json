@@ -1,0 +1,12 @@
+{
+  "workbench.colorCustomizations": {
+    "editor.wordHighlightBackground": "#0052FF",
+    "editor.selectionBackground": "#5e718b",
+    "editor.selectionHighlightBackground": "#7F00FF",
+    "editor.findMatchHighlightBackground": "#5D3FD3",
+    "editor.findRangeHighlightBackground": "#5D3FD3",
+    "editor.lineHighlightBackground": "#7F00FF",
+    "minimap.background": "#00000000",
+    "scrollbar.shadow": "#00000000"
+  }
+}
