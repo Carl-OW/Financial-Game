@@ -15,7 +15,6 @@ const UserRegistration: React.FC = () => {
 
   return (<div className='formContainer'>
     <form id='signupForm' onSubmit={handleSubmit}>
-      <label 
       <input type='text' id='name' name='name'>
       </input>
       <input type='email' id='email' name='email'>
