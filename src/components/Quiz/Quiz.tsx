@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import quizData from "./Quiz.json"; // Import the quiz JSON
 import "./Quiz.css"; // Import the CSS for styling
 
@@ -10,7 +10,6 @@ interface Question {
     c: string;
     d: string;
   };
-  correct_answer: string;
 }
 
 interface Theme {
@@ -18,35 +17,35 @@ interface Theme {
   questions: Question[];
 }
 
+function shuffleArray(array: any[]) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
 function Quiz() {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [feedback, setFeedback] = useState<string | null>(null);
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const theme: Theme = quizData.themes[0]; // Select the first theme or allow user to pick
-  const question: Question = theme.questions[currentQuestionIndex];
 
-  const handleOptionClick = (option: string) => {
-    if (selectedOption) return; // Prevent further clicks after selection
+  useEffect(() => {
+    // Shuffle and pick the first 3 questions
+    const shuffledQuestions = shuffleArray([...theme.questions]).slice(0, 3);
+    setQuestions(shuffledQuestions);
+  }, [theme]);
 
-    setSelectedOption(option);
-
-    // Check if the selected answer is correct
-    if (option === question.correct_answer) {
-      setFeedback("correct");
-    } else {
-      setFeedback("incorrect");
+  // Move to the next question
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     }
-
-    // Remove feedback after 2 seconds and move to next question
-    setTimeout(() => {
-      setSelectedOption(null);
-      setFeedback(null);
-      if (currentQuestionIndex < theme.questions.length - 1) {
-        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      }
-    }, 2000); // 2 seconds feedback duration
   };
+
+  // If questions aren't ready yet (during shuffle), return null
+  if (questions.length === 0) {
+    return null;
+  }
+
+  const question = questions[currentQuestionIndex]; // Get current question
 
   return (
     <div className="quiz-container">
@@ -54,15 +53,14 @@ function Quiz() {
       <p>{question.question}</p>
       <div className="options-container">
         {Object.entries(question.options).map(([key, value]) => (
-          <div
-            key={key}
-            className={`option ${selectedOption === key ? feedback : ""}`}
-            onClick={() => handleOptionClick(key)}
-          >
+          <div key={key} className="option">
             {value}
           </div>
         ))}
       </div>
+      <button onClick={handleNextQuestion} className="next-button">
+        Next Question
+      </button>
     </div>
   );
 }

@@ -6,6 +6,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
@@ -16,6 +17,8 @@ h2 {
 p {
   text-align: center;
   font-size: 1.2rem;
+  color: #000;
+  /* Ensure the question text is black and visible */
 }
 
 .options-container {
@@ -26,25 +29,22 @@ p {
 
 .option {
   padding: 10px 20px;
-  border: 2px solid transparent;
+  border: 2px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
+  color:#000;
+}
+
+.next-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: border-color 0.3s ease;
 }
 
-.option:hover {
-  border-color: #ccc;
-}
-
-.option.correct {
-  border-color: green;
-}
-
-.option.incorrect {
-  border-color: red;
-}
-
-.option:active {
-  background-color: #f1f1f1;
+.next-button:hover {
+  background-color: #0056b3;
 }
