@@ -40,7 +40,7 @@ function DevNavBar() {
         {view === 'numberview' && (
           <NumberGuess
             correctAnswer={29}
-            questionText="Hvor mange prosent av befolkningen har høyere utdanning?"
+            questionText="Hvor stor prosenandel av befolkningen har høyere utdanning?"
           />
         )}
         {view === 'UserRegistration' && <UserRegistration />}

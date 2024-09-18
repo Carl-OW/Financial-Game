@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Admin.css';
 import {
   addToLocalStorage,
@@ -9,17 +9,10 @@ import { Config } from '../../type/config';
 
 const config: Config = getFromLocalStorage('admin') as Config;
 
-function saveOptions(event: FormEvent<HTMLFormElement>) {
-  event.preventDefault();
-  const formData: EventTarget = event.target;
+function saveOptions(config: Config) {
+  console.log(config);
 
-  const newConfig: Config = {
-    getEmail: formData.elements?.getEmail?.value === 'true' ? true : false,
-  };
-
-  console.log(newConfig);
-
-  addToLocalStorage('admin', newConfig);
+  addToLocalStorage('admin', config);
 }
 
 function resetGame() {
@@ -27,15 +20,29 @@ function resetGame() {
 }
 
 const Admin: React.FC = () => {
+  const [options, setOptions] = useState(config || {});
+
   return (
     <div className="adminWrapper">
       <h2>Innstillinger</h2>
-      {JSON.stringify(config, null, 2)}
-      <form onSubmit={saveOptions}>
+      {JSON.stringify(options, null, 2)}
+
+      <p>
         <label htmlFor="getEmail">Samle Inn Epost</label>
-        <input type="checkbox" id="getEmail" name="getEmail" value={'true'} />
-        <button>Lagre</button>
-      </form>
+        <input
+          type="checkbox"
+          id="getEmail"
+          name="getEmail"
+          checked={options.getEmail}
+          value={options.getEmail ? 'true' : 'false'}
+          onChange={() =>
+            setOptions({ ...options, getEmail: !options.getEmail })
+          }
+        />
+        <p>
+          <button onClick={() => saveOptions(options)}>Lagre</button>
+        </p>
+      </p>
       <h2>Verktøy</h2>
       <p>
         <button onClick={resetGame}>Fjern Alle Innsamlede Data!</button>
