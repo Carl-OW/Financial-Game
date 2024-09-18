@@ -25,7 +25,7 @@ const UserRegistration: React.FC = () => {
         </label>
         <input type="text" id="name" name="name"></input>
         <label htmlFor="email" className="emailLabel">
-          Kan vi få email-adressen din?
+          Kan vi få mailen din?
         </label>
         <input type="text" id="email" name="email"></input>
         <label htmlFor="score" className="scoreLabel">
