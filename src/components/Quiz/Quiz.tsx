@@ -37,6 +37,21 @@ function getRandomQuestionFromEachTheme(themes: Theme[]): QuestionWithTheme[] {
   });
 }
 
+// Icon mapping for each theme using root absolute paths
+const themeIcons: { [key: string]: string[] } = {
+  Befolkning: ["/QuizIcons/icon_befolkning_0.png", "/QuizIcons/icon_befolkning_1.png"],
+  Utdanning: ["/QuizIcons/icon_utdanning_0.png", "/QuizIcons/icon_utdanning_1.png"],
+  Arbeid: ["/QuizIcons/icon_arbeid_0.png", "/QuizIcons/icon_arbeid_1.png"],
+  Inntekt: ["/QuizIcons/icon_inntekt_0.png", "/QuizIcons/icon_inntekt_1.png"],
+  Helse: ["/QuizIcons/icon_helse_0.png", "/QuizIcons/icon_helse_1.png"],
+  Miljø: ["/QuizIcons/icon_miljo_0.png", "/QuizIcons/icon_miljo_1.png"],
+  Økonomi: ["/QuizIcons/icon_okonomi_0.png", "/QuizIcons/icon_okonomi_1.png"],
+  Priser: ["/QuizIcons/icon_priser_0.png", "/QuizIcons/icon_priser_1.png"],
+};
+
+
+
+
 function Quiz() {
   const [questions, setQuestions] = useState<QuestionWithTheme[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -56,6 +71,7 @@ function Quiz() {
   const [totalTimeSpent, setTotalTimeSpent] = useState(0); // Track total time spent
   const [correctAnswers, setCorrectAnswers] = useState(0); // Track correct answers
   const [individualScores, setIndividualScores] = useState<number[]>([]); // Store individual question scores
+  const [selectedIcon, setSelectedIcon] = useState<string | null>(null); // Store selected icon for the current question
 
   // Countdown effect
   useEffect(() => {
@@ -79,12 +95,19 @@ function Quiz() {
     setStartTime(Date.now()); // Start the time for the first question
   }, []);
 
-  // Randomize options when the question changes
+  // Randomize options when the question changes and choose random icon for the question
   useEffect(() => {
     if (questions.length > 0) {
       const question = questions[currentQuestionIndex];
       const shuffledOptions = shuffleArray(Object.entries(question.options));
       setRandomizedOptions(shuffledOptions);
+
+      // Choose a random icon for the current theme
+      const icons = themeIcons[question.theme] || [];
+      if (icons.length > 0) {
+        const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+        setSelectedIcon(randomIcon);
+      }
     }
   }, [currentQuestionIndex, questions]);
 
@@ -218,6 +241,10 @@ function Quiz() {
       {" "}
       {/* Apply shake or nod class */}
       <div className="timer">{timer}s</div> {/* Display the timer */}
+      {selectedIcon && (
+        <img src={selectedIcon} alt={question.theme} className="theme-icon" />
+      )}{" "}
+      {/* Display the icon */}
       <h2>Tema: {question.theme}</h2>
       <p className="question-text">{question.question}</p>
       <div className="options-container">
