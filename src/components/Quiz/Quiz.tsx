@@ -131,14 +131,16 @@ function Quiz() {
     isCorrect: boolean
   ) => {
     const questionNumber = currentQuestionIndex + 1;
-    const score = isCorrect ? ((remainingTime / 10) * 100).toFixed(2) : 0;
+    const score = isCorrect
+      ? (remainingTime >= 3 ? 100 : (remainingTime / 3) * 100).toFixed(2)
+      : "0";
     const color =
       questionNumber % 2 === 0 ? "color: hotpink" : "color: neonblue";
 
     console.log(
-      `%cQuestion ${questionNumber}: Time Spent(${elapsedTime.toFixed(
+      `%cQuestion ${questionNumber}: Time Left(${remainingTime.toFixed(
         2
-      )}s) + Answer(${
+      )}s) | Time Spent(${elapsedTime.toFixed(2)}s) + Answer(${
         isCorrect ? "Correct" : "Incorrect"
       }) = Score(${score}%) | Question: ${
         questions[currentQuestionIndex].question
@@ -151,7 +153,8 @@ function Quiz() {
     let questionScore = 0;
 
     if (isCorrect) {
-      questionScore = (remainingTime / 10) * 100; // Calculate score based on remaining time
+      // Full score if 3 or more seconds left, or scaled score for less than 3 seconds remaining
+      questionScore = remainingTime >= 3 ? 100 : (remainingTime / 3) * 100;
     }
 
     // Update individual scores
