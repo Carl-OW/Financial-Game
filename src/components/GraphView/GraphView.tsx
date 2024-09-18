@@ -13,9 +13,11 @@ export const GraphView = () => {
   };
   return (
     <>
+      <h2>{data.title}</h2>
+      <p>{data.description}</p>
       <div className={styles.graphArea}>
         <div className={styles.graph}>
-          <Graph heightChange={heightChange} data={data} />
+          <Graph heightChange={heightChange} data={data.data} />
         </div>
         <div className={styles.drawArea}>
           <DrawingCanvas graphHeight={graphHeight} />
