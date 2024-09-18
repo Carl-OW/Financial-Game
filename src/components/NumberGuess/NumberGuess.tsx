@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './NumberGuess.css';
 
-const NumberGuess: React.FC<NumberGuessProps> = ({ correctAnswer }) => {
+const NumberGuess: React.FC<NumberGuessProps> = ({
+  correctAnswer,
+  questionText,
+}) => {
   const [value, updateValue] = useState(50);
   const [showAnswer, setShowAnswer] = useState(false);
 
@@ -11,14 +14,12 @@ const NumberGuess: React.FC<NumberGuessProps> = ({ correctAnswer }) => {
 
   return (
     <div className="number-guess">
-      <label htmlFor="cowbell">
-        Hvor mange prosent av befolkningen har høyere utdanning?
-      </label>
+      <label htmlFor="percentPicker">{questionText}</label>
       <input
         onChange={(e) => updateValue(Number(e.target.value))}
         type="range"
-        id="cowbell"
-        name="cowbell"
+        id="percentPicker"
+        name="percentPicker"
         min="0"
         max="100"
         step="1"
@@ -34,4 +35,5 @@ export default NumberGuess;
 
 interface NumberGuessProps {
   correctAnswer: number;
+  questionText: string;
 }
