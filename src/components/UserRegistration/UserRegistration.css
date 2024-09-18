@@ -6,21 +6,32 @@
   display: grid;
   row-gap: 15px;
   grid-template-areas: 
-  "name"
-  "email"
-  "score"
-  "button"
+  "nameLabel name name"
+  "emailLabel email email"
+  "scoreLabel score score"
+  ". startButton .";
+}
+input {
+  
 }
 #name  {
   grid-area: name;
 }
+.nameLabel {
+  grid-area: nameLabel
+}
 #email {
   grid-area: email;
-  background-color: hotpink;
+}
+.emailLabel {
+  grid-area: emailLabel
 }
 #score {
   grid-area: score;
 }
+.scoreLabel {
+  grid-area: scoreLabel
+}
 button {
-  grid-area: button;
+  grid-area: startButton;
 }

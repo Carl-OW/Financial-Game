@@ -20,10 +20,19 @@ const UserRegistration: React.FC = () => {
   return (
     <div className="formContainer">
       <form id="signupForm" onSubmit={handleSubmit}>
+        <label htmlFor="name" className="nameLabel">
+          Hva heter du?
+        </label>
         <input type="text" id="name" name="name"></input>
+        <label htmlFor="email" className="emailLabel">
+          Kan vi få email-adressen din?
+        </label>
         <input type="text" id="email" name="email"></input>
+        <label htmlFor="score" className="scoreLabel">
+          Hvor mange poeng fikk du i dag?
+        </label>
         <input type="number" id="score" name="score"></input>
-        <button>HELO</button>
+        <button>START</button>
       </form>
     </div>
   );
