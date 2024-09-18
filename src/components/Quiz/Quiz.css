@@ -15,7 +15,7 @@
 
 /* Nod animation for correct answers */
 .nod {
-  animation: nod 0.6s;
+  animation: nod 0.1s;
 }
 
 @keyframes nod {
@@ -32,7 +32,7 @@
 
 /* Shake animation for incorrect answers */
 .shake {
-  animation: shake 0.2s;
+  animation: shake 0.1s;
 }
 
 @keyframes shake {
@@ -66,7 +66,7 @@ html {
 }
 
 .quiz-container {
-  width: 100%;
+  width: 590px;
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
@@ -78,7 +78,7 @@ html {
   flex-direction: column;
   align-items: center;
   position: relative;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 /* Enhanced timer styling */
@@ -159,6 +159,13 @@ p {
   border-color: #888;
   background-color: #e9e9e9;
   transform: scale(1.03);
+}
+
+.option.reset {
+  border-color: #ccc !important;
+  background-color: #f9f9f9 !important;
+  box-shadow: none !important;
+  transition: border-color 0.4s ease, background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .question-text {

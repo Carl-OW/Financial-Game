@@ -154,7 +154,7 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
         setAnimationType(null);
         handleNextQuestion();
       },
-      isCorrect ? 600 : 200
+      isCorrect ? 350 : 100
     );
   };
 
@@ -193,30 +193,45 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
     setScore((prevScore) => prevScore + questionScore);
   };
 
-  const handleNextQuestion = () => {
-    const nextRoundCount = roundCount + 1;
-    setRoundCount(nextRoundCount);
+const handleNextQuestion = () => {
+  const nextRoundCount = roundCount + 1;
+  setRoundCount(nextRoundCount);
 
-    if (nextRoundCount < questions.length) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+  // Apply reset class to remove feedback before moving to the next question
+  const allOptions = document.querySelectorAll(".option");
+  allOptions.forEach((option) => {
+    option.classList.add("reset");
+  });
+
+  if (nextRoundCount < questions.length) {
+    setTimeout(() => {
+      // Move to the next question
       setSelectedOption(null);
       setFeedbackClass(null);
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       setTimer(10);
       setStartTime(Date.now());
-    } else {
-      const finalScore = calculateFinalScore();
-      setQuizEnded(true);
 
-      const scoreObject = { "Quiz Score": finalScore };
-      console.log(scoreObject);
+      // Remove the reset class after moving to the next question
+      allOptions.forEach((option) => {
+        option.classList.remove("reset");
+      });
+    }, 300); // Delay to allow the reset to be visible
+  } else {
+    const finalScore = calculateFinalScore();
+    setQuizEnded(true);
 
-      // Print out the total time spent and correct answers in the console
-      console.log(`Total Time Spent: ${totalTimeSpent.toFixed(2)} seconds`);
-      console.log(`Correct Answers: ${correctAnswers}`);
+    const scoreObject = { "Quiz Score": finalScore };
+    console.log(scoreObject);
 
-      onQuizEnd(scoreObject);
-    }
-  };
+    // Print out the total time spent and correct answers in the console
+    console.log(`Total Time Spent: ${totalTimeSpent.toFixed(2)} seconds`);
+    console.log(`Correct Answers: ${correctAnswers}`);
+
+    onQuizEnd(scoreObject);
+  }
+};
+
 
   const calculateFinalScore = () => {
     if (individualScores.length === 0) return 0;
@@ -240,10 +255,10 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
   return (
     <div className={`quiz-container ${animationType}`}>
       <div className="timer">{timer}s</div>
+      <h2>Tema: {question.theme}</h2>
       {selectedIcon && (
         <img src={selectedIcon} alt={question.theme} className="theme-icon" />
       )}
-      <h2>Tema: {question.theme}</h2>
       <p className="question-text">{question.question}</p>
       <div className="options-container">
         {randomizedOptions.map(([key, value]) => (
