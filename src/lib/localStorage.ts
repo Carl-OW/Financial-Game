@@ -1,9 +1,13 @@
 import { Config } from '../type/config';
 import type { Storage } from '../type/users';
 
-export function getFromLocalStorage(key: string): Storage {
-  const stored = localStorage.getItem(key);
-  return stored ? JSON.parse(stored) : {};
+export function getFromLocalStorage(key: string): Storage | Config {
+  if (key === 'admin') {
+    return JSON.parse(localStorage.getItem(key)!) as Config;
+  }
+  if (key === 'quiz') {
+    return JSON.parse(localStorage.getItem(key)!) as Storage;
+  } else return {};
 }
 
 export function addToLocalStorage(key: string, data: Storage | Config) {

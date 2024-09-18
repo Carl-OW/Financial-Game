@@ -7,7 +7,7 @@ import {
 } from '../../lib/localStorage';
 import { Config } from '../../type/config';
 
-const config = getFromLocalStorage('admin');
+const config: Config = getFromLocalStorage('admin') as Config;
 
 function saveOptions(event: FormEvent<HTMLFormElement>) {
   event.preventDefault();
