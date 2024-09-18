@@ -208,7 +208,12 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
       setQuizEnded(true);
 
       const scoreObject = { "Quiz Score": finalScore };
-      // console.log(scoreObject);
+      console.log(scoreObject);
+
+      // Print out the total time spent and correct answers in the console
+      console.log(`Total Time Spent: ${totalTimeSpent.toFixed(2)} seconds`);
+      console.log(`Correct Answers: ${correctAnswers}`);
+
       onQuizEnd(scoreObject);
     }
   };
