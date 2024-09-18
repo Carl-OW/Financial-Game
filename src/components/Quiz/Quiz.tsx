@@ -49,23 +49,16 @@ const themeIcons: { [key: string]: string[] } = {
   Priser: ["/QuizIcons/icon_priser_0.png", "/QuizIcons/icon_priser_1.png"],
 };
 
-
-
-
 function Quiz() {
   const [questions, setQuestions] = useState<QuestionWithTheme[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [feedbackClass, setFeedbackClass] = useState<string | null>(null);
-  const [animationType, setAnimationType] = useState<null | "nod" | "shake">(
-    null
-  ); // Differentiate animations
+  const [animationType, setAnimationType] = useState<null | "nod" | "shake">(null); // Differentiate animations
   const [score, setScore] = useState(0); // Overall score to keep track of total points
   const [quizEnded, setQuizEnded] = useState(false);
   const [roundCount, setRoundCount] = useState(0);
-  const [randomizedOptions, setRandomizedOptions] = useState<
-    [string, string][]
-  >([]);
+  const [randomizedOptions, setRandomizedOptions] = useState<[string, string][]>([]);
   const [timer, setTimer] = useState(10); // Countdown timer starts at 10 seconds
   const [startTime, setStartTime] = useState<number>(Date.now()); // Time when question starts
   const [totalTimeSpent, setTotalTimeSpent] = useState(0); // Track total time spent
@@ -148,26 +141,17 @@ function Quiz() {
     ); // Different durations for nod and shake
   };
 
-  const logTimeSpent = (
-    remainingTime: number,
-    elapsedTime: number,
-    isCorrect: boolean
-  ) => {
+  const logTimeSpent = (remainingTime: number, elapsedTime: number, isCorrect: boolean) => {
     const questionNumber = currentQuestionIndex + 1;
-    const score = isCorrect
-      ? (remainingTime >= 3 ? 100 : (remainingTime / 3) * 100).toFixed(2)
-      : "0";
-    const color =
-      questionNumber % 2 === 0 ? "color: hotpink" : "color: neonblue";
+    const score = isCorrect ? (remainingTime >= 3 ? 100 : (remainingTime / 3) * 100).toFixed(2) : "0";
+    const color = questionNumber % 2 === 0 ? "color: hotpink" : "color: neonblue";
 
     console.log(
       `%cQuestion ${questionNumber}: Time Left(${remainingTime.toFixed(
         2
       )}s) | Time Spent(${elapsedTime.toFixed(2)}s) + Answer(${
         isCorrect ? "Correct" : "Incorrect"
-      }) = Score(${score}%) | Question: ${
-        questions[currentQuestionIndex].question
-      }`,
+      }) = Score(${score}%) | Question: ${questions[currentQuestionIndex].question}`,
       color
     );
   };
@@ -199,21 +183,25 @@ function Quiz() {
       setStartTime(Date.now()); // Reset the start time for the next question
     } else {
       // End the quiz and calculate final score
-      setQuizEnded(true);
       const finalScore = calculateFinalScore();
+      setQuizEnded(true);
 
       // Convert total time spent to minutes and seconds
       const minutes = Math.floor(totalTimeSpent / 60);
       const seconds = (totalTimeSpent % 60).toFixed(2);
-
+      const scoreObject = { "Quiz Score": finalScore };
       const timeSpentFormatted =
         minutes > 0
           ? `${minutes} minute${minutes > 1 ? "s" : ""} and ${seconds} seconds`
           : `${seconds} seconds`;
 
       console.log(
-        `Final Score: ${finalScore}%. Correct Answers: ${correctAnswers} out of 8. Total Time Spent: ${timeSpentFormatted}`
+        `Final Score: ${finalScore}%. Correct Answers: ${correctAnswers} out of ${questions.length}. Total Time Spent: ${timeSpentFormatted}`
       );
+      console.log(scoreObject); // Print the score object to the console
+
+      // Return the final score object
+      return scoreObject;
     }
   };
 
