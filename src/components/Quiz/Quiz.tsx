@@ -29,10 +29,8 @@ function shuffleArray(array: any[]) {
 function getRandomQuestionFromEachTheme(themes: Theme[]): QuestionWithTheme[] {
   return themes.map((theme) => {
     if (theme.questions.length === 1) {
-      // If the theme has only one question, pick that one and include the theme
       return { ...theme.questions[0], theme: theme.theme };
     } else {
-      // Otherwise, pick a random question from the theme and include the theme
       const randomIndex = Math.floor(Math.random() * theme.questions.length);
       return { ...theme.questions[randomIndex], theme: theme.theme };
     }
@@ -43,24 +41,47 @@ function Quiz() {
   const [questions, setQuestions] = useState<QuestionWithTheme[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [feedbackClass, setFeedbackClass] = useState<string | null>(null); // Class for feedback (correct/incorrect)
-  const [score, setScore] = useState(0);
+  const [feedbackClass, setFeedbackClass] = useState<string | null>(null);
+  const [animationType, setAnimationType] = useState<null | "nod" | "shake">(
+    null
+  ); // Differentiate animations
+  const [score, setScore] = useState(0); // Overall score to keep track of total points
   const [quizEnded, setQuizEnded] = useState(false);
-  const [roundCount, setRoundCount] = useState(0); // Track the round count
+  const [roundCount, setRoundCount] = useState(0);
   const [randomizedOptions, setRandomizedOptions] = useState<
     [string, string][]
-  >([]); // Store randomized options
+  >([]);
+  const [timer, setTimer] = useState(10); // Countdown timer starts at 10 seconds
+  const [startTime, setStartTime] = useState<number>(Date.now()); // Time when question starts
+  const [totalTimeSpent, setTotalTimeSpent] = useState(0); // Track total time spent
+  const [correctAnswers, setCorrectAnswers] = useState(0); // Track correct answers
+  const [individualScores, setIndividualScores] = useState<number[]>([]); // Store individual question scores
 
+  // Countdown effect
   useEffect(() => {
-    // Shuffle the themes and select one question per theme
+    if (timer > 0 && !selectedOption) {
+      const countdown = setTimeout(() => setTimer(timer - 1), 1000); // Update the timer every second
+      return () => clearTimeout(countdown);
+    } else if (timer === 0 && !selectedOption) {
+      const elapsedTime = (Date.now() - startTime) / 1000; // Time in seconds
+      const remainingTime = 10 - elapsedTime;
+      logTimeSpent(remainingTime, elapsedTime, false); // Log the time spent when time runs out
+      calculateScore(0, false); // User ran out of time, score is 0
+      handleNextQuestion();
+    }
+  }, [timer, selectedOption]);
+
+  // Load questions and shuffle options
+  useEffect(() => {
     const shuffledThemes = shuffleArray(quizData.themes);
     const selectedQuestions = getRandomQuestionFromEachTheme(shuffledThemes);
     setQuestions(selectedQuestions);
+    setStartTime(Date.now()); // Start the time for the first question
   }, []);
 
+  // Randomize options when the question changes
   useEffect(() => {
     if (questions.length > 0) {
-      // Randomize the order of the options for the current question
       const question = questions[currentQuestionIndex];
       const shuffledOptions = shuffleArray(Object.entries(question.options));
       setRandomizedOptions(shuffledOptions);
@@ -68,62 +89,140 @@ function Quiz() {
   }, [currentQuestionIndex, questions]);
 
   const handleOptionClick = (key: string) => {
-    if (!questions.length || selectedOption) return; // Prevent further clicks after selection
+    if (!questions.length || selectedOption) return;
 
     const question = questions[currentQuestionIndex];
-    setSelectedOption(key); // Set the selected option
+    setSelectedOption(key);
 
-    // Check if the selected answer is correct
     const isCorrect = key === question.correct_answer;
+    setFeedbackClass(isCorrect ? "correct fade-out" : "incorrect fade-out"); // Add fade-out effect
 
-    // Set feedback class based on whether the answer is correct or incorrect
-    setFeedbackClass(isCorrect ? "correct" : "incorrect");
-
-    // Update score if the selected answer is correct
     if (isCorrect) {
-      setScore((prevScore) => prevScore + 1);
+      setCorrectAnswers((prevCorrect) => prevCorrect + 1); // Increment correct answers count
+      setAnimationType("nod"); // Set nod for correct answer
+    } else {
+      setAnimationType("shake"); // Set shake for incorrect answer
     }
+
+    // Calculate score based on time and correctness
+    const elapsedTime = (Date.now() - startTime) / 1000; // Time in seconds
+    const remainingTime = 10 - elapsedTime;
+    calculateScore(remainingTime, isCorrect);
+
+    // Log remaining time and time spent
+    logTimeSpent(remainingTime, elapsedTime, isCorrect);
+
+    // Accumulate total time spent
+    setTotalTimeSpent((prevTime) => prevTime + elapsedTime);
+
+    // Trigger the shake or nod effect before moving to the next question
+    setTimeout(
+      () => {
+        setAnimationType(null); // Stop animation after 0.5s
+        handleNextQuestion();
+      },
+      isCorrect ? 600 : 200
+    ); // Different durations for nod and shake
+  };
+
+  const logTimeSpent = (
+    remainingTime: number,
+    elapsedTime: number,
+    isCorrect: boolean
+  ) => {
+    const questionNumber = currentQuestionIndex + 1;
+    const score = isCorrect ? ((remainingTime / 10) * 100).toFixed(2) : 0;
+    const color =
+      questionNumber % 2 === 0 ? "color: hotpink" : "color: neonblue";
+
+    console.log(
+      `%cQuestion ${questionNumber}: Time Spent(${elapsedTime.toFixed(
+        2
+      )}s) + Answer(${
+        isCorrect ? "Correct" : "Incorrect"
+      }) = Score(${score}%) | Question: ${
+        questions[currentQuestionIndex].question
+      }`,
+      color
+    );
+  };
+
+  const calculateScore = (remainingTime: number, isCorrect: boolean) => {
+    let questionScore = 0;
+
+    if (isCorrect) {
+      questionScore = (remainingTime / 10) * 100; // Calculate score based on remaining time
+    }
+
+    // Update individual scores
+    setIndividualScores((prevScores) => [...prevScores, questionScore]);
+
+    // Update overall score
+    setScore((prevScore) => prevScore + questionScore);
   };
 
   const handleNextQuestion = () => {
-    const nextRoundCount = roundCount + 1; // Calculate the next round count
-    setRoundCount(nextRoundCount); // Update the round count
+    const nextRoundCount = roundCount + 1;
+    setRoundCount(nextRoundCount);
 
     if (nextRoundCount < questions.length) {
-      // Move to the next question if there are more questions left
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      setSelectedOption(null); // Reset selected option
-      setFeedbackClass(null); // Reset feedback class for the next question
+      setSelectedOption(null);
+      setFeedbackClass(null); // Remove fade-out effect before loading new question
+      setTimer(10); // Reset the timer for the next question
+      setStartTime(Date.now()); // Reset the start time for the next question
     } else {
-      // End the quiz after all rounds
+      // End the quiz and calculate final score
       setQuizEnded(true);
+      const finalScore = calculateFinalScore();
+
+      // Convert total time spent to minutes and seconds
+      const minutes = Math.floor(totalTimeSpent / 60);
+      const seconds = (totalTimeSpent % 60).toFixed(2);
+
+      const timeSpentFormatted =
+        minutes > 0
+          ? `${minutes} minute${minutes > 1 ? "s" : ""} and ${seconds} seconds`
+          : `${seconds} seconds`;
+
       console.log(
-        `Quiz Ended! Your final score: ${score} out of ${questions.length}`
+        `Final Score: ${finalScore}%. Correct Answers: ${correctAnswers} out of 8. Total Time Spent: ${timeSpentFormatted}`
       );
     }
   };
 
+  const calculateFinalScore = () => {
+    if (individualScores.length === 0) return 0;
+
+    const totalScore = score;
+    const averageScore = totalScore / individualScores.length;
+
+    return averageScore;
+  };
+
   if (quizEnded) {
-    return null; // Return null to remove the quiz container when the quiz ends // Show when the quiz is done
+    return <div>Quiz Ended! Your final score is: {calculateFinalScore()}%</div>;
   }
 
-  // Ensure questions are loaded before rendering
   if (questions.length === 0 || !questions[currentQuestionIndex]) {
-    return null;
+    return null; // Return null until questions are loaded
   }
 
-  const question = questions[currentQuestionIndex]; // Get current question
+  const question = questions[currentQuestionIndex];
 
   return (
-    <div className="quiz-container">
-      <h2>Tema: {question.theme}</h2> {/* Display the theme of the question */}
+    <div className={`quiz-container ${animationType}`}>
+      {" "}
+      {/* Apply shake or nod class */}
+      <div className="timer">{timer}s</div> {/* Display the timer */}
+      <h2>Tema: {question.theme}</h2>
       <p className="question-text">{question.question}</p>
       <div className="options-container">
         {randomizedOptions.map(([key, value]) => (
           <div
             key={key}
             className={`option ${
-              selectedOption === key ? feedbackClass : "" // Only apply feedback to the clicked option
+              selectedOption === key ? `${feedbackClass} selected` : ""
             }`}
             onClick={() => handleOptionClick(key)}
           >
@@ -131,12 +230,6 @@ function Quiz() {
           </div>
         ))}
       </div>
-      {/* Show next question button only after the user has made a selection */}
-      {selectedOption && (
-        <button onClick={handleNextQuestion} className="next-button">
-          Next Question
-        </button>
-      )}
     </div>
   );
 }

@@ -1,3 +1,69 @@
+/* Fade out for correct/incorrect feedback */
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* Nod animation for correct answers */
+.nod {
+  animation: nod 0.6s;
+}
+
+@keyframes nod {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Shake animation for incorrect answers */
+.shake {
+  animation: shake 0.2s;
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+
+  75% {
+    transform: translateX(-5px);
+  }
+}
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .quiz-container {
   width: 100%;
   max-width: 600px;
@@ -10,7 +76,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Center content horizontally */
+  position: relative;
+  height: auto;
+}
+
+.timer {
+  position: absolute;
+  top: 25px;
+  left: 40px;
+  font-size: 1.5rem;
+  color: #ff0000;
+  padding: 10px 20px;
+  /* Adjust the padding to center the text */
+  border: 2px solid #ff0000;
+  /* Red border to match the text color */
+  border-radius: 50%;
+  /* Make it a circle */
+  text-align: center;
+  /* Center the text inside the circle */
+  width: 10px;
+  /* Set a fixed width */
+  height: 30px;
+  /* Set a fixed height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Vertically center the text */
 }
 
 h2 {
@@ -37,49 +128,33 @@ p {
   border-radius: 5px;
   background-color: #fff;
   cursor: pointer;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
   color: #333;
 }
 
 .option.correct {
   border-color: green;
-  /* Correct option outline green */
   background-color: #d4edda;
 }
 
 .option.incorrect {
   border-color: red;
-  /* Incorrect option outline red */
   background-color: #f8d7da;
 }
 
-.option:hover {
+.option.selected {
+  transform: scale(1.05);
+}
+
+.option:not(.correct):not(.incorrect):hover {
   border-color: #999;
   background-color: #f1f1f1;
-}
-
-.next-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  align-self: center;
-  /* Center button within the container */
-}
-
-.next-button:hover {
-  background-color: #0056b3;
+  transform: scale(1.02);
 }
 
 .question-text {
   font-weight: bold;
   font-size: 1.5rem;
-  /* Make the text larger */
   color: #1a9d49;
-  /* Green color */
   text-align: center;
-  /* Optional: center the text */
 }
