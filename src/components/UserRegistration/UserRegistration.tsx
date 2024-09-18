@@ -1,6 +1,13 @@
 import React, { FormEvent } from 'react';
 import './UserRegistration.css';
+import md5 from 'md5';
 import { addToLocalStorage } from '../../lib/localStorage';
+
+// Generate a short, unique hash from combination of email and name
+function generateUUID(name: string, email: string | undefined) {
+  const hash = md5(name + email);
+  return hash.substring(0, 8);
+}
 
 function handleSubmit(event: FormEvent<HTMLFormElement>) {
   event.preventDefault();
@@ -8,11 +15,12 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
   const formData: EventTarget = event.target;
 
   addToLocalStorage('quiz', {
-    [formData.elements.email.value]: {
-      name: formData.elements.name.value,
-      email: formData.elements.email.value,
-      score: formData.elements.score.value,
-    },
+    [generateUUID(formData.elements.name.value, formData.elements.email.value)]:
+      {
+        name: formData.elements.name.value,
+        email: formData.elements.email.value,
+        score: formData.elements.score.value,
+      },
   });
 }
 
