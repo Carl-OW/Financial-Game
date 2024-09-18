@@ -37,7 +37,12 @@ function DevNavBar() {
       {/* Render the selected view */}
       <div className="view-container">
         {view === 'graphview' && <GraphView />}
-        {view === 'numberview' && <NumberGuess />}
+        {view === 'numberview' && (
+          <NumberGuess
+            correctAnswer={29}
+            questionText="Hvor mange prosent av befolkningen har høyere utdanning?"
+          />
+        )}
         {view === 'UserRegistration' && <UserRegistration />}
         {view === 'Leaderboard' && <Leaderboard />}
         {view === 'Admin' && <Admin />}
