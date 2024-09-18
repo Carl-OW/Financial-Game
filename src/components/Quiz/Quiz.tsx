@@ -1,25 +1,18 @@
-// Quiz.tsx
 import React, { useState, useEffect } from "react";
 import quizData from "./Quiz.json"; // Import the quiz JSON
 import "./Quiz.css"; // Ensure the CSS exists
 import { QuizProps, QuestionWithTheme } from "../Game/QuizTypes"; // Import shared types
 
-function shuffleArray(array: any[]) {
-  return array.sort(() => Math.random() - 0.5);
-}
-
-function getRandomQuestionFromEachTheme(
-  themes: { theme: string; questions: QuestionWithTheme[] }[]
-): QuestionWithTheme[] {
-  return themes.map((theme) => {
-    if (theme.questions.length === 1) {
-      return { ...theme.questions[0], theme: theme.theme };
-    } else {
-      const randomIndex = Math.floor(Math.random() * theme.questions.length);
-      return { ...theme.questions[randomIndex], theme: theme.theme };
-    }
-  });
-}
+const themeBackgrounds: { [key: string]: string } = {
+  Befolkning: "/Backgrounds/befolkning.png",
+  Utdanning: "/Backgrounds/utdanning.png",
+  Arbeid: "/Backgrounds/arbeid.png",
+  Inntekt: "/Backgrounds/inntekt.png",
+  Helse: "/Backgrounds/helse.png",
+  Miljø: "/Backgrounds/miljo.png",
+  Økonomi: "/Backgrounds/okonomi.png",
+  Priser: "/Backgrounds/priser.png",
+};
 
 const themeIcons: { [key: string]: string[] } = {
   Befolkning: [
@@ -37,6 +30,23 @@ const themeIcons: { [key: string]: string[] } = {
   Økonomi: ["/QuizIcons/icon_okonomi_0.png", "/QuizIcons/icon_okonomi_1.png"],
   Priser: ["/QuizIcons/icon_priser_0.png", "/QuizIcons/icon_priser_1.png"],
 };
+
+function shuffleArray(array: any[]) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function getRandomQuestionFromEachTheme(
+  themes: { theme: string; questions: QuestionWithTheme[] }[]
+): QuestionWithTheme[] {
+  return themes.map((theme) => {
+    if (theme.questions.length === 1) {
+      return { ...theme.questions[0], theme: theme.theme };
+    } else {
+      const randomIndex = Math.floor(Math.random() * theme.questions.length);
+      return { ...theme.questions[randomIndex], theme: theme.theme };
+    }
+  });
+}
 
 const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
   const [questions, setQuestions] = useState<QuestionWithTheme[]>([]);
@@ -67,7 +77,7 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
     } else if (timer === 0 && !selectedOption) {
       const elapsedTime = (Date.now() - startTime) / 1000;
       const remainingTime = 10 - elapsedTime;
-      // logTimeSpent(remainingTime, elapsedTime, false); // Commented out
+      logTimeSpent(remainingTime, elapsedTime, false);
       calculateScore(0, false);
       handleNextQuestion();
     }
@@ -79,6 +89,15 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
     const selectedQuestions = getRandomQuestionFromEachTheme(shuffledThemes);
     setQuestions(selectedQuestions);
     setStartTime(Date.now());
+    // Set the initial background based on the first question
+    if (selectedQuestions.length > 0) {
+      const initialTheme = selectedQuestions[0].theme;
+      setBodyBackground(themeBackgrounds[initialTheme]);
+    }
+    // Reset background when component unmounts
+    return () => {
+      document.body.style.background = "";
+    };
   }, []);
 
   // Randomize options and choose random icon for each question
@@ -88,6 +107,9 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
       const shuffledOptions = shuffleArray(Object.entries(question.options));
       setRandomizedOptions(shuffledOptions);
 
+      // Set background for each question
+      setBodyBackground(themeBackgrounds[question.theme]);
+
       const icons = themeIcons[question.theme] || [];
       if (icons.length > 0) {
         const randomIcon = icons[Math.floor(Math.random() * icons.length)];
@@ -95,6 +117,15 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
       }
     }
   }, [currentQuestionIndex, questions]);
+
+  const setBodyBackground = (backgroundImage: string | null) => {
+    if (backgroundImage) {
+      document.body.style.background = `url(${backgroundImage}) no-repeat center center fixed`;
+      document.body.style.backgroundSize = "cover";
+    } else {
+      document.body.style.background = "";
+    }
+  };
 
   const handleOptionClick = (key: string) => {
     if (!questions.length || selectedOption) return;
@@ -115,7 +146,7 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
     const elapsedTime = (Date.now() - startTime) / 1000;
     const remainingTime = 10 - elapsedTime;
     calculateScore(remainingTime, isCorrect);
-    // logTimeSpent(remainingTime, elapsedTime, isCorrect); // Commented out
+    logTimeSpent(remainingTime, elapsedTime, isCorrect);
     setTotalTimeSpent((prevTime) => prevTime + elapsedTime);
 
     setTimeout(
@@ -139,16 +170,16 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
     const color =
       questionNumber % 2 === 0 ? "color: hotpink" : "color: neonblue";
 
-    // console.log( // Commented out
-    //   `%cQuestion ${questionNumber}: Time Left(${remainingTime.toFixed(
-    //     2
-    //   )}s) | Time Spent(${elapsedTime.toFixed(2)}s) + Answer(${
-    //     isCorrect ? "Correct" : "Incorrect"
-    //   }) = Score(${score}%) | Question: ${
-    //     questions[currentQuestionIndex].question
-    //   }`,
-    //   color
-    // );
+    console.log(
+      `%cQuestion ${questionNumber}: Time Left(${remainingTime.toFixed(
+        2
+      )}s) | Time Spent(${elapsedTime.toFixed(2)}s) + Answer(${
+        isCorrect ? "Correct" : "Incorrect"
+      }) = Score(${score}%) | Question: ${
+        questions[currentQuestionIndex].question
+      }`,
+      color
+    );
   };
 
   const calculateScore = (remainingTime: number, isCorrect: boolean) => {
@@ -177,7 +208,7 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
       setQuizEnded(true);
 
       const scoreObject = { "Quiz Score": finalScore };
-      // console.log(scoreObject); // Commented out
+      // console.log(scoreObject);
       onQuizEnd(scoreObject);
     }
   };

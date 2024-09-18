@@ -2,7 +2,6 @@ import { useState } from "react";
 import { GraphView } from "../GraphView/GraphView";
 import UserRegistration from "../UserRegistration/UserRegistration";
 import Leaderboard from "../Leaderboard/Leaderboard";
-import Quiz from "../Quiz/Quiz";
 import Admin from "../Admin/Admin";
 import Game from "../Game/Game";
 
@@ -34,9 +33,6 @@ function DevNavBar() {
       {/* Render the selected view */}
       <div className="view-container">
         {view === "graphview" && <GraphView />}
-        {view === "quizview" && (
-          <Quiz onQuizEnd={(scoreObject) => console.log(scoreObject)} />
-        )}
         {view === "UserRegistration" && <UserRegistration />}
         {view === "Leaderboard" && <Leaderboard />}
         {view === "Admin" && <Admin />}
