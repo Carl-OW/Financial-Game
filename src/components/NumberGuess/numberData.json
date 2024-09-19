@@ -8,6 +8,15 @@
       "minimumValue": 5000,
       "maximumValue": 15000,
       "preselectedValue": 10000
+    },
+    {
+      "theme": "Arbeid",
+      "questionText": "Andel bosatte 15 år og over som mottar uføretrygd?",
+      "format": "Prosent",
+      "correctAnswer": 15.7,
+      "minimumValue": 5,
+      "maximumValue": 45,
+      "preselectedValue": 25
     }
   ]
 }

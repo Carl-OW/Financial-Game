@@ -31,10 +31,21 @@ const NumberGuess: React.FC<GagueData> = ({
     const c = 2.6827;
     const p = 2.2279;
     let score = 100 / (1 + Math.pow(diff / c, p));
-    if (diff >= 10) {
+    if (diff >= 15) {
       score = 0;
     }
     return Math.round(score);
+  }
+
+  function calculateBetterScore(
+    correctAnswer: number,
+    guessedAnswer: number,
+    max: number,
+    min: number
+  ) {
+    return Math.round(
+      100 - Math.abs(guessedAnswer - correctAnswer) / ((max - min) / 100)
+    );
   }
 
   return (
@@ -44,6 +55,7 @@ const NumberGuess: React.FC<GagueData> = ({
       <input
         onChange={(e) => updateValue(Number(e.target.value))}
         type="range"
+        value={value}
         id="percentPicker"
         name="percentPicker"
         min={minimumValue}
@@ -63,6 +75,16 @@ const NumberGuess: React.FC<GagueData> = ({
           <h1 className="weightedpoints">
             Du fikk {calculateWeightedScore(value, correctAnswer)} vektede
             poeng!
+          </h1>
+          <h1 className="betterpoints">
+            Du fikk{' '}
+            {calculateBetterScore(
+              value,
+              correctAnswer,
+              minimumValue,
+              maximumValue
+            )}{' '}
+            forbedrede poeng!
           </h1>
         </div>
       )}
