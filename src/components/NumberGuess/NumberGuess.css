@@ -1,72 +1,179 @@
-body,
-html {
-  height: 100%;
-  width: 100%;
-  margin: 0;
+/* Container with fixed width and height */
+.fixed-container {
+  width: 400px;
+  height: 600px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.gauge-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.number-guess {
+  text-align: center;
+}
+
+.theme {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.question {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.slider-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  height: 60px;
+  /* Fixed height for the slider section */
+}
+
+.slider-wrapper {
+  position: relative;
+  width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.gague-container {
-    width: 890px;
-  max-width: 900px;
-  margin: 0 auto;
-  margin-bottom: 200px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  background-color: #ffffff;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  transition: all 0.1s ease-in-out;
-}
-.number-guess {
-    padding: 30px;
-  background-color: cream;
-  display: grid;
-  grid-column-gap: 10px;
-  grid-row-gap: 5px;
-  justify-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas: 
-  "theme question question"
-  "slider slider slider"
-  "guess guess reveal"
-  "facit facit facit"
-  "weightedpoints weightedpoints weightedpoints"
-  ". . next";
-}
-.question {
-  grid-area: question;
-  font-size: 1em;
-}
 .slider {
   width: 100%;
-  grid-area: slider;
-  flex: 1;
-  margin: 0 10px;
+  height: 12px;
+  /* Increased thickness */
+  background-color: #28a745;
+  /* Solid green color for the slider */
+  border-radius: 6px;
+  /* Round the edges */
+  outline: none;
+  /* Remove default outline */
+  -webkit-appearance: none;
+  /* Remove default appearance on webkit browsers */
+  appearance: none;
+  /* Remove default appearance on modern browsers */
 }
-.guess{
-  grid-area: guess;
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  /* Remove default thumb */
+  appearance: none;
+  /* Remove default thumb */
+  width: 24px;
+  /* Make the thumb larger */
+  height: 24px;
+  /* Square thumb */
+  background-color: #fff;
+  /* White color for the thumb */
+  border: 2px solid #28a745;
+  /* Add a border matching the slider track */
+  border-radius: 50%;
+  /* Make the thumb circular */
+  cursor: pointer;
+  /* Change cursor to pointer */
 }
-.theme {
-  grid-area: theme;
+
+.slider::-moz-range-thumb {
+  width: 24px;
+  /* Make the thumb larger */
+  height: 24px;
+  /* Square thumb */
+  background-color: #fff;
+  /* White color for the thumb */
+  border: 2px solid #28a745;
+  /* Add a border matching the slider track */
+  border-radius: 50%;
+  /* Make the thumb circular */
+  cursor: pointer;
+  /* Change cursor to pointer */
 }
-.reveal{
-  grid-area: reveal;
+
+.slider::-ms-thumb {
+  width: 24px;
+  /* Make the thumb larger */
+  height: 24px;
+  /* Square thumb */
+  background-color: #fff;
+  /* White color for the thumb */
+  border: 2px solid #28a745;
+  /* Add a border matching the slider track */
+  border-radius: 50%;
+  /* Make the thumb circular */
+  cursor: pointer;
+  /* Change cursor to pointer */
 }
-.next {
-  grid-area: next;
+
+.slider-value {
+  position: absolute;
+  top: 30px;
+  /* Position the value below the slider */
+  transform: translateX(-50%);
+  /* Center the value */
+  background-color: #28a745;
+  /* Green background for the value */
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
 }
-.facit {
-  grid-area: facit;
-  color: hotpink;
+
+.min-value,
+.max-value {
+  font-size: 1rem;
+  width: 40px;
 }
+
+/* Green color for the user's answer */
+.user-answer {
+  color: #28a745;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+/* Lighter green color for the correct answer */
+.correct-answer {
+    color: #1b8a35;
+  font-size: 1.2rem;
+  margin-top: 5px;
+}
+
+.reveal {
+  margin-top: 40px;
+  /* Moved further down */
+  padding: 10px 20px;
+  background-color: #28a745;
+  /* Changed from blue to green */
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  height: 50px;
+  /* Fixed height to prevent shifting */
+}
+
+.facit,
 .weightedpoints {
-  grid-area: weightedpoints;
-  color: powderblue;
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+.next {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
 }

@@ -50,18 +50,18 @@
       "questionText": "Hvor mye steg gjennomsnittlig årslønn for hele økonomien? (2022-2023)",
       "format": "Prosent",
       "correctAnswer": 5.2,
-      "minimumValue": -10.0,
+      "minimumValue": 10.0,
       "preselectedValue": 0.0,
-      "maximumValue": 10.0
+      "maximumValue": 100.0
     },
     {
       "theme": "Priser",
       "questionText": "Hvor mye steg prisene siste 12 måneder? (August 2023-august 2024)",
       "format": "Prosent",
       "correctAnswer": 2.6,
-      "minimumValue": -10.0,
+      "minimumValue": 10.0,
       "preselectedValue": 0.0,
-      "maximumValue": 10.0
+      "maximumValue": 100.0
     },
     {
       "theme": "Befolkning",
@@ -115,7 +115,7 @@
       "correctAnswer": 73.0,
       "minimumValue": 0.0,
       "preselectedValue": 150.0,
-      "maximumValue": 300.0
+      "maximumValue": 100.0
     },
     {
       "theme": "Miljø",
