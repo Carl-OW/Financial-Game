@@ -16,10 +16,18 @@ function Game() {
   const [userRegistered, setUserRegistered] = useState<boolean>(false); // Track if user has registered
   const [userData, setUserData] = useState<GameData | null>(null); // Track user data
 
+  // State to control GraphView reruns and scores
+  const [graphScores, setGraphScores] = useState<number[]>([]); // Array to store graph scores
+  const [graphRunCount, setGraphRunCount] = useState(0); // Track the current run
+  const graphTotalRuns = 3; // Define how many times GraphView will run
+
   // New state to control game mode steps
   const [gameModeStep, setGameModeStep] = useState<"quiz" | "graphView">(
     "quiz"
   );
+
+  // Create a unique key for each GraphView run
+  const graphViewKey = `graphview-${graphRunCount}`;
 
   // Handle the quiz ending and storing the score
   const handleQuizEnd = (scoreObject: QuizScore) => {
@@ -29,6 +37,19 @@ function Game() {
 
     // After the quiz ends, switch to graph view
     setGameModeStep("graphView");
+  };
+
+  // Handle graph completion
+  const handleGraphComplete = (score: number) => {
+    setGraphScores((prevScores) => [...prevScores, score]); // Save score in array
+    console.log(`Graph Run ${graphRunCount + 1} Score:`, score); // Log the graph score
+
+    // Check if we need to rerun GraphView
+    if (graphRunCount + 1 < graphTotalRuns) {
+      setGraphRunCount((prevCount) => prevCount + 1); // Increase run count to rerun GraphView
+    } else {
+      setView("done"); // All runs complete, move to done view
+    }
   };
 
   // Handle user registration completion
@@ -60,7 +81,10 @@ function Game() {
             <Quiz onQuizEnd={handleQuizEnd} /> // Quiz first
           )}
           {gameModeStep === "graphView" && (
-            <GraphView /> // Show GraphView after quiz completion
+            <GraphView
+              key={graphViewKey} // Use the unique key to rerender GraphView
+              onGraphComplete={handleGraphComplete}
+            /> // Show GraphView after quiz completion
           )}
         </GameMode>
       )}
@@ -72,6 +96,14 @@ function Game() {
             <h2>Game Complete!</h2>
             <p>Thank you, {userData.name}!</p>
             <p>Overall Quiz Score: {overallScore["Quiz Score"]}%</p>
+            <p>Graph Scores:</p>
+            <ul>
+              {graphScores.map((score, index) => (
+                <li key={index}>
+                  Run {index + 1}: {score}%
+                </li>
+              ))}
+            </ul>
             <div>
               All Stored Scores:
               {quizScores.map((score, index) => (

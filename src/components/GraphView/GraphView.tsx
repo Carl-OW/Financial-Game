@@ -1,11 +1,14 @@
 import DrawingCanvas from "./DrawingCanvas/DrawingCanvas";
 import Graph from "./Graph/Graph";
-
 import styles from "./graphview.module.scss";
 import React from "react";
 import { fetchData, ParsedData } from "./GraphService";
 
-export const GraphView = () => {
+export const GraphView = ({
+  onGraphComplete,
+}: {
+  onGraphComplete: (score: number) => void;
+}) => {
   const [graphHeight, setGraphHeight] = React.useState(0);
   const [score, setScore] = React.useState(0);
   const [referenceGraph, setReferenceGraph] = React.useState<number[][] | null>(
@@ -13,13 +16,16 @@ export const GraphView = () => {
   );
 
   const [data, setData] = React.useState<null | ParsedData>(null);
+
   const heightChange = (val: number) => {
     setGraphHeight(val);
   };
 
   const onFinished = (matrix: number[][]) => {
     if (referenceGraph) {
-      setScore(calculateMatrixLikeness(matrix, referenceGraph));
+      const calculatedScore = calculateMatrixLikeness(matrix, referenceGraph);
+      setScore(calculatedScore);
+      onGraphComplete(calculatedScore); // Pass the score to the parent component (Game.tsx)
     }
   };
 
