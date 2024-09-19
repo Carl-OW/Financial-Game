@@ -40,7 +40,7 @@ const UserRegistration: React.FC<{ onRegistrationComplete: () => void }> = ({
     <div className="formContainer">
       <form id="signupForm" onSubmit={handleSubmit}>
         <label htmlFor="name" className="nameLabel">
-          Hva heter du?
+          Skriv Navn
         </label>
         <input
           type="text"
