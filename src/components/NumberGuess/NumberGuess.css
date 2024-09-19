@@ -45,6 +45,7 @@ html {
   font-size: 1em;
 }
 .slider {
+  width: 100%;
   grid-area: slider;
   flex: 1;
   margin: 0 10px;
