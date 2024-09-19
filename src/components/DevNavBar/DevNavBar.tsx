@@ -24,6 +24,8 @@ export const DevNavBar: React.FC<DevNavBarProps> = ({ party }) => {
 
   const reset = () => {
     handleClick("show nothing");
+
+    document.body.style.background = "none";
     window.setTimeout(() => {
       handleClick("Game");
     }, 100);

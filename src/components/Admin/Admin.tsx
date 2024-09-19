@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { saveAs } from 'file-saver';
-import './Admin.css';
+import React, { useState } from "react";
+import { saveAs } from "file-saver";
+import "./Admin.css";
 import {
   addToLocalStorage,
   clearAllLocalStorage,
   getFromLocalStorage,
-} from '../../lib/localStorage';
-import { Config } from '../../type/config';
+} from "../../lib/localStorage";
+import { Config } from "../../type/config";
 
-const config: Config = getFromLocalStorage('admin') as Config;
-const leaderboard = getFromLocalStorage('user');
+const config: Config = getFromLocalStorage("admin") as Config;
+const leaderboard = getFromLocalStorage("user");
 
 function saveOptions(config: Config) {
   console.log(config);
 
-  addToLocalStorage('admin', config);
+  addToLocalStorage("admin", config);
 }
 
 function resetGame() {
@@ -36,7 +36,7 @@ const Admin: React.FC = () => {
           id="getEmail"
           name="getEmail"
           checked={options.getEmail}
-          value={options.getEmail ? 'true' : 'false'}
+          value={options.getEmail ? "true" : "false"}
           onChange={() =>
             setOptions({ ...options, getEmail: !options.getEmail })
           }
@@ -53,9 +53,9 @@ const Admin: React.FC = () => {
         <button
           onClick={() => {
             const blob = new Blob([JSON.stringify(leaderboard, null, 2)], {
-              type: 'text/plain;charset=utf-8',
+              type: "text/plain;charset=utf-8",
             });
-            saveAs(blob, 'Resultater.json');
+            saveAs(blob, "Resultater.json");
           }}
         >
           LASTE NEEEED
