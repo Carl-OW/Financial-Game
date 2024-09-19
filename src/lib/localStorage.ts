@@ -25,6 +25,10 @@ export function addToLocalStorage(key: string, data: Storage | Config) {
   localStorage.setItem(key, JSON.stringify({ ...localStorageObject, ...data }));
 }
 
+export function removeFromLocalStorage(key: string) {
+  localStorage.removeItem(key);
+}
+
 export function clearAllLocalStorage() {
   localStorage.clear();
 }

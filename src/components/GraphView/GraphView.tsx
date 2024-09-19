@@ -74,7 +74,7 @@ export const GraphView = ({
   const setBodyBackground = (backgroundImage: string | null) => {
     console.log("BGIMG", backgroundImage);
     if (backgroundImage) {
-      document.body.style.background = `url(${backgroundImage}) no-repeat center center fixed`;
+      document.body.style.background = `url(${backgroundImage}) no-repeat center 50px fixed`;
       document.body.style.backgroundSize = "cover";
     } else {
       document.body.style.background = "";
@@ -154,7 +154,7 @@ export const GraphView = ({
     (!data && (
       <div>
         <ClimbingBoxLoader color="#1a9d49" size="50px" />
-        <h1>Laster inn graf...</h1>
+        <h2>Laster inn graf...</h2>
       </div>
     )) ||
     (data && (
