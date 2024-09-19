@@ -6,6 +6,7 @@ import { QuizScore } from "./QuizTypes"; // Import the types
 import { GameData } from "../../type/users"; // Import your GameData type
 import Leaderboard from "../Leaderboard/Leaderboard"; // Import Leaderboard component
 import { GraphView } from "../GraphView/GraphView"; // Import GraphView
+import { addToLocalStorage } from "../../lib/localStorage"; // Import local storage utility
 import { graphEntries } from "../GraphView/db/db";
 import { shuffleArray } from "../GraphView/GraphService";
 
@@ -52,7 +53,42 @@ function Game() {
     if (graphRunCount + 1 < graphTotalRuns) {
       setGraphRunCount((prevCount) => prevCount + 1); // Increase run count to rerun GraphView
     } else {
-      setView("done"); // All runs complete, move to done view
+      // All runs complete, update user score and move to done view
+      updateUserScoreInLocalStorage();
+      setView("done");
+    }
+  };
+
+  // Calculate the final game score as a number
+  const calculateGameFinalScore = (): number => {
+    if (!overallScore || graphScores.length === 0) return 0;
+
+    const averageGraphScore =
+      graphScores.reduce((a, b) => a + b, 0) / graphScores.length; // Average graph scores
+    const quizScore = overallScore["Quiz Score"]; // Quiz score is a percentage
+
+    // Combine quiz score and average graph score as a number
+    return quizScore + averageGraphScore;
+  };
+
+  // Update user score and save it to local storage
+  const updateUserScoreInLocalStorage = () => {
+    if (userData) {
+      const finalScore = calculateGameFinalScore();
+
+      // Update userData with the final score
+      const updatedUserData = {
+        ...userData,
+        score: finalScore,
+      };
+      setUserData(updatedUserData); // Update the userData state
+
+      // Save the updated user data to local storage
+      addToLocalStorage("user", {
+        [userData.name]: updatedUserData,
+      });
+
+      console.log("User score updated in localStorage:", updatedUserData);
     }
   };
 
@@ -70,7 +106,7 @@ function Game() {
       {view === "home" && (
         <div className="start-game-wrapper">
           <div className="start-game" onClick={() => setView("userReg")}>
-            START SPILL
+            Start Spill
           </div>
         </div>
       )}
@@ -110,10 +146,12 @@ function Game() {
             <ul>
               {graphScores.map((score, index) => (
                 <li key={index}>
-                  Run {index + 1}: {score}%
+                  Run {index + 1}: {score}
                 </li>
               ))}
             </ul>
+            <p>Final Game Score: {calculateGameFinalScore()}</p>{" "}
+            {/* Display the final score */}
             <div>
               All Stored Scores:
               {quizScores.map((score, index) => (
