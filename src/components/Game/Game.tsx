@@ -139,29 +139,9 @@ function Game() {
       {view === "done" && overallScore && userData && (
         <div className="game-complete-container">
           <div className="game-complete-left">
-            <h2>Game Complete!</h2>
-            <p>Thank you, {userData.name}!</p>
-            <p>Overall Quiz Score: {overallScore["Quiz Score"]}%</p>
-            <p>Graph Scores:</p>
-            <ul>
-              {graphScores.map((score, index) => (
-                <li key={index}>
-                  Run {index + 1}: {score}
-                </li>
-              ))}
-            </ul>
-            <p>Final Game Score: {calculateGameFinalScore()}</p>{" "}
-            {/* Display the final score */}
-            <div>
-              All Stored Scores:
-              {quizScores.map((score, index) => (
-                <div key={index}>
-                  Quiz {index + 1} Score: {score["Quiz Score"]}%
-                </div>
-              ))}
-            </div>
+            <h2>{userData.name}!</h2>
+            <p>GameScore: {calculateGameFinalScore()}</p>{" "}
           </div>
-
           <div className="game-complete-right">
             <Leaderboard />
           </div>
