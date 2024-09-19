@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { saveAs } from 'file-saver';
 import './Admin.css';
 import {
   addToLocalStorage,
@@ -8,6 +9,7 @@ import {
 import { Config } from '../../type/config';
 
 const config: Config = getFromLocalStorage('admin') as Config;
+const leaderboard = getFromLocalStorage('quiz');
 
 function saveOptions(config: Config) {
   console.log(config);
@@ -46,6 +48,18 @@ const Admin: React.FC = () => {
       <h2>Verktøy</h2>
       <p>
         <button onClick={resetGame}>Fjern Alle Innsamlede Data!</button>
+      </p>
+      <p>
+        <button
+          onClick={() => {
+            const blob = new Blob([JSON.stringify(leaderboard, null, 2)], {
+              type: 'text/plain;charset=utf-8',
+            });
+            saveAs(blob, 'Resultater.json');
+          }}
+        >
+          LASTE NEEEED
+        </button>
       </p>
     </div>
   );
