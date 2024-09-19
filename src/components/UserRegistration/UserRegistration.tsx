@@ -39,42 +39,55 @@ const UserRegistration: React.FC<{
     onRegistrationComplete(userData);
   };
 
-  return (
-    <div className="formContainer">
-      <form id="signupForm" onSubmit={handleSubmit}>
-        <label htmlFor="name" className="nameLabel">
-          Skriv Navn
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          minLength={3}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+return (
+  <div className="user-registration-formContainer">
+    <form className="user-registration-signupForm" onSubmit={handleSubmit}>
+      <label
+        htmlFor="name"
+        className="user-registration-label user-registration-nameLabel"
+      >
+        Spiller Navn
+      </label>
+      <input
+        type="text"
+        id="name"
+        className="user-registration-input user-registration-name"
+        name="name"
+        minLength={3}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
 
-        {/* If config.getEmail is true, show the email input */}
-        {config && config.getEmail == true && (
-          <>
-            <label htmlFor="email" className="emailLabel">
-              Kan vi få mailen din?
-            </label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)} // Capture email input
-            />
-          </>
-        )}
+      {config && config.getEmail == true && (
+        <>
+          <label
+            htmlFor="email"
+            className="user-registration-label user-registration-emailLabel"
+          >
+            Email
+          </label>
+          <input
+            type="text"
+            id="email"
+            className="user-registration-input user-registration-email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </>
+      )}
 
-        <button type="submit">START</button>
-      </form>
-    </div>
-  );
+      <button
+        type="submit"
+        className="user-registration-button user-registration-startButton"
+      >
+        START
+      </button>
+    </form>
+  </div>
+);
+
 };
 
 export default UserRegistration;

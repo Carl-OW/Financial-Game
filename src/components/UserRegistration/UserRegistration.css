@@ -1,42 +1,95 @@
-.formContainer {
+/* Container for the form, centered and with a max width */
+.user-registration-formContainer {
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 1200px;
+  /* Double the max width */
 }
-#signupForm {
-	padding: 50px;
-	background-color: lightcoral;
-  border-radius: 10px;
+
+/* Grid layout for the form */
+.user-registration-signupForm {
+  padding: 100px;
+  /* Double the padding */
+  border-radius: 20px;
+  /* Increase the border-radius slightly */
   display: grid;
-  row-gap: 15px;
-  column-gap: 15px;
-  grid-template-areas: 
-  "nameLabel name name"
-  "emailLabel email email"
-  "scoreLabel score score"
-  ". startButton .";
+  row-gap: 30px;
+  /* Double the row gap */
+  column-gap: 30px;
+  /* Double the column gap */
+  grid-template-areas:
+    "nameLabel name name"
+    "emailLabel email email"
+    "scoreLabel score score"
+    ". startButton .";
 }
-input {
-  
+
+/* Input field styles */
+.user-registration-input {
+  padding: 20px;
+  /* Double the padding */
+  font-size: 2rem;
+  /* Double the font-size */
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  /* Double the border radius */
+  width: 100%;
 }
-#name  {
+
+/* Label styles */
+.user-registration-label {
+  font-size: 2.4rem;
+  /* Double the font-size */
+  color: #1a9d49;
+  /* Green color */
+  font-weight: bold;
+}
+
+/* Button styles */
+.user-registration-button {
+  padding: 24px 40px;
+  /* Double the padding */
+  font-size: 2.4rem;
+  /* Double the font-size */
+  background-color: #1a9d49;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  /* Increase border radius */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  justify-self: center;
+}
+
+.user-registration-button:hover {
+  background-color: #138e3d;
+}
+
+/* Grid area definitions */
+.user-registration-name {
   grid-area: name;
 }
-.nameLabel {
-  grid-area: nameLabel
+
+.user-registration-nameLabel {
+  grid-area: nameLabel;
 }
-#email {
+
+.user-registration-email {
   grid-area: email;
 }
-.emailLabel {
-  grid-area: emailLabel
+
+.user-registration-emailLabel {
+  grid-area: emailLabel;
 }
-#score {
+
+.user-registration-score {
   grid-area: score;
 }
-.scoreLabel {
-  grid-area: scoreLabel
+
+.user-registration-scoreLabel {
+  grid-area: scoreLabel;
 }
-button {
-  justify-self: center;
+
+.user-registration-startButton {
   grid-area: startButton;
+  justify-self: center;
 }
