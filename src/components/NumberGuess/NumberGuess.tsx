@@ -10,6 +10,7 @@ const NumberGuess: React.FC<GagueData> = ({
   minimumValue,
   preselectedValue,
   questionText,
+  onQuizEnd,
 }) => {
   const [value, updateValue] = useState(preselectedValue);
   const [showAnswer, setShowAnswer] = useState(false);
@@ -18,10 +19,10 @@ const NumberGuess: React.FC<GagueData> = ({
     setShowAnswer(!showAnswer);
   }
 
-  function calculateScore(guessedVaule: number, correctValue: number) {
-    const difference = Math.abs(guessedVaule - correctValue);
-    return 100 - difference;
-  }
+  // function calculateScore(guessedVaule: number, correctValue: number) {
+  //   const difference = Math.abs(guessedVaule - correctValue);
+  //   return 100 - difference;
+  // }
 
   function calculateWeightedScore(
     correctAnswer: number,
@@ -37,22 +38,30 @@ const NumberGuess: React.FC<GagueData> = ({
     return Math.round(score);
   }
 
-  function calculateBetterScore(
-    correctAnswer: number,
-    guessedAnswer: number,
-    max: number,
-    min: number
-  ) {
-    return Math.round(
-      100 - Math.abs(guessedAnswer - correctAnswer) / ((max - min) / 100)
-    );
-  }
+  // function calculateBetterScore(
+  //   correctAnswer: number,
+  //   guessedAnswer: number,
+  //   max: number,
+  //   min: number
+  // ) {
+  //   return Math.round(
+  //     100 - Math.abs(guessedAnswer - correctAnswer) / ((max - min) / 100)
+  //   );
+  // }
 
   return (
     <div className="number-guess">
-      <h1>{theme}</h1>
-      <label htmlFor="percentPicker">{questionText}</label>
+      <h2 className="theme">{theme}</h2>
+      <label htmlFor="percentPicker" className="question">
+        {questionText}
+      </label>
+      {/* <StyledSlider
+        presetValue={value}
+        maxValue={maximumValue}
+        minValue={minimumValue}
+      /> */}
       <input
+        className="slider"
         onChange={(e) => updateValue(Number(e.target.value))}
         type="range"
         value={value}
@@ -62,21 +71,23 @@ const NumberGuess: React.FC<GagueData> = ({
         max={maximumValue}
         step="1"
       />
-      <button onClick={reveal}>Vis svar</button>
-      <h1>
+      <button className="reveal" onClick={reveal}>
+        Vis svar
+      </button>
+      <h2 className="guess">
         Du gjetta: {value} {format}
-      </h1>
+      </h2>
       {showAnswer && (
         <div>
-          <h1 className="facit">Riktig svar var: {correctAnswer}%</h1>
-          <h1 className="points">
+          <h2 className="facit">Riktig svar var: {correctAnswer}%</h2>
+          {/* <h2 className="points">
             Du fikk {calculateScore(value, correctAnswer)} poeng!
-          </h1>
-          <h1 className="weightedpoints">
+          </h2> */}
+          <h2 className="weightedpoints">
             Du fikk {calculateWeightedScore(value, correctAnswer)} vektede
             poeng!
-          </h1>
-          <h1 className="betterpoints">
+          </h2>
+          {/* <h2 className="betterpoints">
             Du fikk{' '}
             {calculateBetterScore(
               value,
@@ -85,7 +96,18 @@ const NumberGuess: React.FC<GagueData> = ({
               maximumValue
             )}{' '}
             forbedrede poeng!
-          </h1>
+          </h2> */}
+          <button
+            className="next"
+            onClick={() => {
+              onQuizEnd({
+                'Quiz Score': calculateWeightedScore(value, correctAnswer),
+              });
+              setShowAnswer(false);
+            }}
+          >
+            Neste
+          </button>
         </div>
       )}
     </div>
