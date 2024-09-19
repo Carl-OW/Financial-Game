@@ -47,7 +47,7 @@ const UserRegistration: React.FC<{
           htmlFor="name"
           className="user-registration-label user-registration-nameLabel"
         >
-          Spiller Navn
+          Navn
         </label>
         <input
           type="text"

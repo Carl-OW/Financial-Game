@@ -167,5 +167,15 @@ interface GameModeProps {
 }
 
 const GameMode: React.FC<GameModeProps> = ({ children }) => {
-  return <div className="game-mode">{children}</div>;
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {children}
+    </div>
+  );
 };

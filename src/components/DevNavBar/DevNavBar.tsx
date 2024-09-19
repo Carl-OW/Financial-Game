@@ -8,6 +8,7 @@ import NumberGuess from "../NumberGuess/NumberGuess";
 import numberData from "../NumberGuess/numberData.json";
 import { graphEntries } from "../GraphView/db/db";
 import { shuffleArray } from "../GraphView/GraphService";
+import styles from "./DevNavBar.module.scss";
 
 const shuffledGraphViews = shuffleArray(graphEntries);
 
@@ -70,7 +71,7 @@ export const DevNavBar: React.FC<DevNavBarProps> = ({ party }) => {
       )}
 
       {/* Render the selected view */}
-      <div className="view-container">
+      <div className={styles.viewContainer}>
         {view === "graphview" && (
           <GraphView
             theme={shuffledGraphViews[0].theme}

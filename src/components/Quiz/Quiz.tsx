@@ -249,7 +249,7 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
   const question = questions[currentQuestionIndex];
 
   return (
-    <div className={`quiz-container ${animationType}`}>
+    <div className={`quiz-container ${animationType && animationType}`}>
       <div className="timer">{timer}s</div>
       <h2>Tema: {question.theme}</h2>
       {selectedIcon && (

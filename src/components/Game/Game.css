@@ -1,7 +1,6 @@
 .game-complete-container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 200px;
 }
 
 .game-complete-left,
@@ -40,7 +39,6 @@
   border: 1px solid #ddd;
 }
 
-
 /* Styling for the start screen */
 .start-game {
   font-size: 6rem;
@@ -62,6 +60,12 @@
   /* Add transparent border for positioning */
   margin: 0 auto;
   /* Center the clickable area */
+}
+
+@media only screen and (max-width: 600px) {
+  .start-game {
+    font-size: 3rem;
+  }
 }
 
 .start-game:hover {
@@ -95,6 +99,5 @@
   align-items: center;
   height: 100vh;
   /* Full screen height */
-  width: 100vw;
   /* Full screen width */
 }
