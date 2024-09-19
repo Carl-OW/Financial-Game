@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { saveAs } from 'file-saver';
 import './Admin.css';
 import {
@@ -9,7 +9,7 @@ import {
 import { Config } from '../../type/config';
 
 const config: Config = getFromLocalStorage('admin') as Config;
-const leaderboard = getFromLocalStorage('quiz');
+const leaderboard = getFromLocalStorage('user');
 
 function saveOptions(config: Config) {
   console.log(config);
