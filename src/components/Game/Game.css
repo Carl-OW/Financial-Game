@@ -1,6 +1,7 @@
 .game-complete-container {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 200px;
 }
 
 .game-complete-left,
@@ -38,6 +39,7 @@
   padding: 10px;
   border: 1px solid #ddd;
 }
+
 
 /* Styling for the start screen */
 .start-game {

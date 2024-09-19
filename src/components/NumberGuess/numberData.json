@@ -1,22 +1,139 @@
 {
   "numberData": [
     {
-      "theme": "Miljø",
-      "questionText": "Hvor mange kilometer kjører en personbil i gjennomsnitt per år?",
-      "format": "Kilometer",
-      "correctAnswer": 11274,
-      "minimumValue": 5000,
-      "maximumValue": 15000,
-      "preselectedValue": 10000
+      "theme": "Befolkning",
+      "questionText": "Hvor stor andel av befolkningen er innvandrere? (2024)",
+      "format": "Prosent",
+      "correctAnswer": 16.8,
+      "minimumValue": 5.0,
+      "preselectedValue": 25.0,
+      "maximumValue": 45.0
+    },
+    {
+      "theme": "Utdanning",
+      "questionText": "Kvinneandel blant studenter? (2023)",
+      "format": "Prosent",
+      "correctAnswer": 60.6,
+      "minimumValue": 10.0,
+      "preselectedValue": 50.0,
+      "maximumValue": 90.0
     },
     {
       "theme": "Arbeid",
-      "questionText": "Andel bosatte 15 år og over som mottar uføretrygd?",
+      "questionText": "Andel bosatte 15 år og over som mottar uføretrygd? (2023)",
       "format": "Prosent",
       "correctAnswer": 15.7,
-      "minimumValue": 5,
-      "maximumValue": 45,
-      "preselectedValue": 25
+      "minimumValue": 5.0,
+      "preselectedValue": 25.0,
+      "maximumValue": 45.0
+    },
+    {
+      "theme": "Inntekt",
+      "questionText": "Andel av nettoformue som eies av de rikeste 1 % av befolkningen? (2022)",
+      "format": "Prosent",
+      "correctAnswer": 22.3,
+      "minimumValue": 10.0,
+      "preselectedValue": 50.0,
+      "maximumValue": 90.0
+    },
+    {
+      "theme": "Helse",
+      "questionText": "Andel som mosjonerer ukentlig eller oftere? (2019)",
+      "format": "Prosent",
+      "correctAnswer": 74.0,
+      "minimumValue": 20.0,
+      "preselectedValue": 60.0,
+      "maximumValue": 100.0
+    },
+    {
+      "theme": "Økonomi",
+      "questionText": "Hvor mye steg gjennomsnittlig årslønn for hele økonomien? (2022-2023)",
+      "format": "Prosent",
+      "correctAnswer": 5.2,
+      "minimumValue": -10.0,
+      "preselectedValue": 0.0,
+      "maximumValue": 10.0
+    },
+    {
+      "theme": "Priser",
+      "questionText": "Hvor mye steg prisene siste 12 måneder? (August 2023-august 2024)",
+      "format": "Prosent",
+      "correctAnswer": 2.6,
+      "minimumValue": -10.0,
+      "preselectedValue": 0.0,
+      "maximumValue": 10.0
+    },
+    {
+      "theme": "Befolkning",
+      "questionText": "Hvor stor andel av befolkningen bor i tettsteder? (2023)",
+      "format": "Prosent",
+      "correctAnswer": 83.0,
+      "minimumValue": 20.0,
+      "preselectedValue": 60.0,
+      "maximumValue": 100.0
+    },
+    {
+      "theme": "Utdanning",
+      "questionText": "Gjennomsnittlig standpunktkarakter i norsk hovedmål på 10.trinn? (2024)",
+      "format": "Poeng",
+      "correctAnswer": 3.9,
+      "minimumValue": 1.0,
+      "preselectedValue": 3.5,
+      "maximumValue": 6.0
+    },
+    {
+      "theme": "Arbeid",
+      "questionText": "Andel av befolkingen 15-74 år utenfor arbeidsstyrken? (2023)",
+      "format": "Prosent",
+      "correctAnswer": 27.2,
+      "minimumValue": 0.0,
+      "preselectedValue": 30.0,
+      "maximumValue": 60.0
+    },
+    {
+      "theme": "Inntekt",
+      "questionText": "Kvinners bruttoinntekt i prosent av menns? (2022)",
+      "format": "Prosent",
+      "correctAnswer": 70.5,
+      "minimumValue": 50.0,
+      "preselectedValue": 100.0,
+      "maximumValue": 150.0
+    },
+    {
+      "theme": "Helse",
+      "questionText": "Andel av sysselsatte i helse- og sosialtjenester som har helseutdanning? (2023)",
+      "format": "Prosent",
+      "correctAnswer": 76.7,
+      "minimumValue": 20.0,
+      "preselectedValue": 60.0,
+      "maximumValue": 100.0
+    },
+    {
+      "theme": "Økonomi",
+      "questionText": "Hvor mye større enn EU-gjennomsnittet er BNP per innbygger i Norge? (2023)",
+      "format": "Prosent",
+      "correctAnswer": 73.0,
+      "minimumValue": 0.0,
+      "preselectedValue": 150.0,
+      "maximumValue": 300.0
+    },
+    {
+      "theme": "Miljø",
+      "questionText": "Hvor stor andel fornybar energi brukes i transport? (2022)",
+      "format": "Prosent",
+      "correctAnswer": 23.7,
+      "minimumValue": 0.0,
+      "preselectedValue": 50.0,
+      "maximumValue": 100.0
+    },
+    {
+      "theme": "Priser",
+      "questionText": "Hvor mye har prisene på brukte boliger steget siste 8 år? (2015–2023)",
+      "format": "Prosent",
+      "correctAnswer": 40.8,
+      "minimumValue": 0.0,
+      "preselectedValue": 50.0,
+      "maximumValue": 100.0
     }
   ]
 }
