@@ -22,6 +22,7 @@ export const DevNavBar: React.FC<DevNavBarProps> = ({ party }) => {
     setView(selectedView); // Set the selected view and hide the navbar
   };
 
+  // Fantastic 🧑‍🍳😙🤌
   const reset = () => {
     handleClick("show nothing");
 
