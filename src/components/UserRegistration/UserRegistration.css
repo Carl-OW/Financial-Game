@@ -3,8 +3,12 @@
   max-width: 600px;
 }
 #signupForm {
+	padding: 50px;
+	background-color: lightcoral;
+  border-radius: 10px;
   display: grid;
   row-gap: 15px;
+  column-gap: 15px;
   grid-template-areas: 
   "nameLabel name name"
   "emailLabel email email"
@@ -33,5 +37,6 @@ input {
   grid-area: scoreLabel
 }
 button {
+  justify-self: center;
   grid-area: startButton;
 }

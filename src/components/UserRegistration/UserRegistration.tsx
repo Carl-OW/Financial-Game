@@ -5,8 +5,8 @@ import { addToLocalStorage, getFromLocalStorage } from '../../lib/localStorage';
 
 // Generate a short, unique hash from combination of email and name
 function generateUUID(name: string, email: string | undefined) {
-  const hash = md5(name + email);
-  return hash.substring(0, 8);
+  const hash = md5(name.toLowerCase() + email?.toLowerCase());
+  return hash.substring(0, 10);
 }
 
 const config = getFromLocalStorage('admin');
