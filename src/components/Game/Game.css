@@ -1,18 +1,38 @@
+body {
+  overflow: hidden;
+  /* Disable scrolling on the entire page */
+}
+
+/* Encompassing container for left and right side */
 .game-complete-container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 200px;
+  align-items: stretch;
+  flex-wrap: wrap;
+  height: 75vh;
+  /* The container will take 75% of the viewport height */
+  width: 50%;
+  /* Set the width to 50% */
+  margin: 0 auto;
+  /* Center the container horizontally */
+  box-sizing: border-box;
+  /* Ensure padding doesn't affect width */
+  overflow-y: auto;
+  /* Enable scrolling when content exceeds the container height */
 }
 
+/* Left and right side inside the encompassing container */
 .game-complete-left,
 .game-complete-right {
   width: 50%;
   padding: 20px;
+  box-sizing: border-box;
+  /* Ensure padding doesn’t affect the width */
+  overflow: hidden;
 }
 
 .game-complete-left {
   border-right: 1px solid #ccc;
-  /* Optional: Adds a divider between sections */
 }
 
 .game-complete-right {
@@ -21,8 +41,9 @@
 
 .scoreTable {
   width: 100%;
-  /* Ensure the leaderboard table takes up the full width of its section */
   border-collapse: collapse;
+  table-layout: fixed;
+  /* Ensures consistent column widths */
 }
 
 .scoreTableHeader {
@@ -40,33 +61,67 @@
   border: 1px solid #ddd;
 }
 
+/* For smaller screens: make left and right sections stack vertically */
+@media (max-width: 768px) {
+
+  .game-complete-left,
+  .game-complete-right {
+    width: 100%;
+    /* Full width for both sides on smaller screens */
+    padding: 10px;
+    border-right: none;
+    box-sizing: border-box;
+  }
+
+  .game-complete-right {
+    padding-left: 0;
+  }
+}
+
+/* Adjust table font size and layout for smaller screens */
+@media (max-width: 480px) {
+  .scoreTable {
+    font-size: 0.8rem;
+  }
+
+  .game-complete-left,
+  .game-complete-right {
+    padding: 5px;
+  }
+}
+
+/* Make sure the container doesn't exceed viewport height */
+.game-complete-container {
+  max-height: 75vh;
+  /* Set maximum height to 75% of the viewport */
+  overflow-y: auto;
+}
+
+/* Ensure full height responsiveness */
+@media (min-height: 800px) {
+  .game-complete-container {
+    min-height: 75vh;
+  }
+}
 
 /* Styling for the start screen */
 .start-game {
   font-size: 6rem;
-  /* Large text size */
   color: #1a9d49;
-  /* Green color */
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease;
-  /* Smooth transition for scaling effect */
   display: flex;
   justify-content: center;
   align-items: center;
   width: 400px;
-  /* Smaller clickable surface */
   height: 400px;
-  /* Smaller clickable surface */
   border: 3px solid transparent;
-  /* Add transparent border for positioning */
   margin: 0 auto;
-  /* Center the clickable area */
 }
 
 .start-game:hover {
   animation: breathe 1.5s infinite;
-  /* Breathing effect */
 }
 
 @keyframes breathe {
@@ -76,7 +131,6 @@
 
   50% {
     transform: scale(1.05);
-    /* Slightly enlarge in the middle of the breathing effect */
   }
 
   100% {
@@ -86,7 +140,6 @@
 
 .start-game:active {
   transform: scale(0.95);
-  /* Slight shrink when clicked */
 }
 
 .start-game-wrapper {
@@ -94,7 +147,5 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* Full screen height */
   width: 100vw;
-  /* Full screen width */
 }
