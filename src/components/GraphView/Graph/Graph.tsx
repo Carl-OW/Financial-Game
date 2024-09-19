@@ -109,7 +109,6 @@ const Graph: React.FC<GraphProps> = ({ data, heightChange, onRendered }) => {
       x: {
         title: {
           display: true,
-          text: "Year",
         },
       },
       y: {

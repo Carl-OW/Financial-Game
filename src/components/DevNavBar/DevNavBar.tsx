@@ -43,6 +43,7 @@ function DevNavBar() {
       <div className="view-container">
         {view === "graphview" && (
           <GraphView
+            theme={shuffledGraphViews[0].theme}
             onGraphComplete={() => {}}
             indicator={shuffledGraphViews[0].indicator}
             question={shuffledGraphViews[0].question}

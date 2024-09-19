@@ -89,6 +89,7 @@ function Game() {
               indicator={shuffledGraphViews[graphRunCount].indicator}
               url={shuffledGraphViews[graphRunCount].savedQuery}
               question={shuffledGraphViews[graphRunCount].question}
+              theme={shuffledGraphViews[graphRunCount].theme}
               key={graphViewKey} // Use the unique key to rerender GraphView
               onGraphComplete={handleGraphComplete}
             /> // Show GraphView after quiz completion
