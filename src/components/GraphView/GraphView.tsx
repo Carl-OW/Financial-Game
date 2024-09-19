@@ -3,18 +3,31 @@ import Graph from "./Graph/Graph";
 import styles from "./graphview.module.scss";
 import React from "react";
 import { fetchData, ParsedData } from "./GraphService";
-import { PropagateLoader } from "react-spinners";
+import { ClimbingBoxLoader } from "react-spinners";
+
+const themeBackgrounds: { [key: string]: string } = {
+  Befolkning: "/footer/footer_theme_befolkning.png",
+  Utdanning: "/footer/footer_theme_utdanning.png",
+  Arbeid: "/footer/footer_theme_arbeid.png",
+  Inntekt: "/footer/footer_theme_inntekt.png",
+  Helse: "/footer/footer_theme_helse.png",
+  Miljø: "/footer/footer_theme_miljo.png",
+  Økonomi: "/footer/footer_theme_okonomi.png",
+  Priser: "/footer/footer_theme_priser.png",
+};
 
 export const GraphView = ({
   onGraphComplete,
   indicator,
   question,
   url,
+  theme,
 }: {
   onGraphComplete: (score: number) => void;
   question: string;
   indicator: string;
   url: string;
+  theme: string;
 }) => {
   const [graphHeight, setGraphHeight] = React.useState(0);
   const [score, setScore] = React.useState(0);
@@ -39,10 +52,25 @@ export const GraphView = ({
   React.useEffect(() => {
     const fetch = async () => {
       const t = await fetchData(url);
-      setData(t);
+      window.setTimeout(() => {
+        setData(t);
+        // Set background for each question
+        console.log("SET BG", theme);
+        setBodyBackground(themeBackgrounds[theme]);
+      }, 1000);
     };
     fetch();
   }, []);
+
+  const setBodyBackground = (backgroundImage: string | null) => {
+    console.log("BGIMG", backgroundImage);
+    if (backgroundImage) {
+      document.body.style.background = `url(${backgroundImage}) no-repeat center center fixed`;
+      document.body.style.backgroundSize = "cover";
+    } else {
+      document.body.style.background = "";
+    }
+  };
 
   function calculateMatrixLikeness(
     matrix1: number[][],
@@ -115,14 +143,20 @@ export const GraphView = ({
 
   return (
     (!data && (
-      <div style={{ width: "500px" }}>
-        <PropagateLoader color="#1a9d49" size="100" />
+      <div>
+        <ClimbingBoxLoader color="#1a9d49" size="50px" />
+        <h1>Laster inn graf...</h1>
       </div>
     )) ||
     (data && (
-      <>
-        {/* <h1>Score: {score}</h1> */}
-        <h2>{question}</h2>
+      <div
+        style={{
+          maxWidth: "1000px",
+          margin: "24px",
+          backgroundColor: "white",
+        }}
+      >
+        <h2 style={{ color: "#1a9d49" }}>{question}</h2>
         <p>{indicator}</p>
         <div className={styles.graphArea}>
           <div className={styles.graph}>
@@ -132,11 +166,8 @@ export const GraphView = ({
               data={data.data}
             />
           </div>
-          <div className={styles.drawArea}>
-            <DrawingCanvas onFinished={onFinished} graphHeight={graphHeight} />
-          </div>
         </div>
-      </>
+      </div>
     ))
   );
 };
