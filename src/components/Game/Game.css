@@ -11,7 +11,8 @@ body {
   flex-wrap: wrap;
   height: 75vh;
   /* The container will take 75% of the viewport height */
-  width: 50%;
+  width: 100%;
+  max-width: 1000;
   /* Set the width to 50% */
   margin: 0 auto;
   /* Center the container horizontally */

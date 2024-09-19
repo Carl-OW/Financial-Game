@@ -101,6 +101,9 @@ export const Game: React.FC<GameProps> = ({ party }) => {
     }
   };
 
+  function roundToThree(num: number): number {
+    return Math.round(num * 1000);
+  }
   // Handle user registration completion
   const handleRegistrationComplete = (userData: GameData, userId: string) => {
     setUserData(userData); // Save the user data
@@ -150,7 +153,7 @@ export const Game: React.FC<GameProps> = ({ party }) => {
         <div className="game-complete-container">
           <div className="game-complete-left">
             <h2>{userData.name}!</h2>
-            <p>GameScore: {calculateGameFinalScore()}</p>{" "}
+            <p>GameScore: {roundToThree(calculateGameFinalScore())}</p>{" "}
           </div>
           <div className="game-complete-right">
             <Leaderboard />
