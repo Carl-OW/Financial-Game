@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./Game.css"; // Ensure the CSS exists
 import UserRegistration from "../UserRegistration/UserRegistration";
 import Quiz from "../Quiz/Quiz"; // Adjust path based on structure
@@ -66,15 +66,20 @@ export const Game: React.FC<GameProps> = ({ party }) => {
     }
   };
 
+  React.useEffect(() => {
+    if (numberGuessScore !== 0) {
+      updateUserScoreInLocalStorage();
+      party();
+      setView("done");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [numberGuessScore]);
+
   // Handle NumberGuess completion
   const handleNumberGuessComplete = (finalScore: number) => {
     setNumberGuessScore(finalScore); // Save the final score from NumberGuess
-    console.log("Number Guess Final Score:", finalScore);
 
     // After NumberGuess, update user score and move to done view
-    updateUserScoreInLocalStorage();
-    party();
-    setView("done");
   };
 
   // Calculate the final game score as a number
@@ -85,14 +90,13 @@ export const Game: React.FC<GameProps> = ({ party }) => {
       graphScores.reduce((a, b) => a + b, 0) / graphScores.length; // Average graph scores
     const quizScore = overallScore["Quiz Score"]; // Quiz score is a percentage
 
-    // Combine quiz score, average graph score, and NumberGuess score
     return quizScore + averageGraphScore + numberGuessScore;
   };
 
   // Update user score and save it to local storage using the unique ID
   const updateUserScoreInLocalStorage = () => {
     if (userData && userId) {
-    const finalScore = calculateGameFinalScore(); // Round the score here
+      const finalScore = calculateGameFinalScore(); // Round the score here
 
       // Retrieve the existing user data from localStorage
       const storedData = getFromLocalStorage("user") as Storage; // Cast to Storage
