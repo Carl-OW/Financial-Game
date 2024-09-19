@@ -1,5 +1,4 @@
 import React, { useRef, useState, MouseEvent } from "react";
-
 interface Position {
   x: number;
   y: number;

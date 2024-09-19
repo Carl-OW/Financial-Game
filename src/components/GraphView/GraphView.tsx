@@ -153,7 +153,6 @@ export const GraphView = ({
         style={{
           maxWidth: "1000px",
           margin: "24px",
-          backgroundColor: "white",
         }}
       >
         <h2 style={{ color: "#1a9d49" }}>{question}</h2>
@@ -165,6 +164,9 @@ export const GraphView = ({
               heightChange={heightChange}
               data={data.data}
             />
+          </div>
+          <div className={styles.drawArea}>
+            <DrawingCanvas onFinished={onFinished} graphHeight={graphHeight} />
           </div>
         </div>
       </div>
