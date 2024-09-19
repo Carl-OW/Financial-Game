@@ -68,6 +68,13 @@
   position: relative;
   transition: all 0.1s ease-in-out;
 }
+@media only screen and (max-width: 600px) {
+  .quiz-container {
+    margin: 0;
+    border-radius: 0;
+    top: 0;
+  }
+}
 
 /* Enhanced timer styling */
 .timer {

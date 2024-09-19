@@ -157,7 +157,7 @@ export const GraphView = ({
     (data && (
       <div
         style={{
-          maxWidth: "1000px",
+          minWidth: "1000px",
           margin: "24px",
         }}
       >
