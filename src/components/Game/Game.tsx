@@ -6,10 +6,10 @@ import { QuizScore } from "./QuizTypes"; // Import the types
 import { GameData } from "../../type/users"; // Import your GameData type
 import Leaderboard from "../Leaderboard/Leaderboard"; // Import Leaderboard component
 import { GraphView } from "../GraphView/GraphView"; // Import GraphView
-import NumberGuess  from "../NumberGuess/NumberGuess"; // Import NumberGuess
 import { addToLocalStorage, getFromLocalStorage } from "../../lib/localStorage"; // Import local storage utility
 import { graphEntries } from "../GraphView/db/db";
 import { shuffleArray } from "../GraphView/GraphService";
+import NumberGuess from "../NumberGuess/NumberGuess"; // Import NumberGuess component
 
 const shuffledGraphViews = shuffleArray(graphEntries);
 
@@ -18,9 +18,9 @@ type GameProps = {
 };
 
 export const Game: React.FC<GameProps> = ({ party }) => {
-  const [view, setView] = useState<
-    "home" | "quiz" | "userReg" | "done" | "numberGuess"
-  >("home");
+  const [view, setView] = useState<"home" | "quiz" | "userReg" | "done">(
+    "home"
+  );
   const [overallScore, setOverallScore] = useState<QuizScore | null>(null);
   const [quizScores, setQuizScores] = useState<QuizScore[]>([]); // Store all quiz scores
   const [userRegistered, setUserRegistered] = useState<boolean>(false); // Track if user has registered
@@ -30,13 +30,14 @@ export const Game: React.FC<GameProps> = ({ party }) => {
   // State to control GraphView reruns and scores
   const [graphScores, setGraphScores] = useState<number[]>([]); // Array to store graph scores
   const [graphRunCount, setGraphRunCount] = useState(0); // Track the current run
-  const [numberGuessScore, setNumberGuessScore] = useState<number | null>(null); // Track NumberGuess score
   const graphTotalRuns = 3; // Define how many times GraphView will run
 
-  // New state to control game mode steps
+  // New state to control game mode steps, including number guess
   const [gameModeStep, setGameModeStep] = useState<
     "quiz" | "graphView" | "numberGuess"
   >("quiz");
+
+  const [numberGuessScore, setNumberGuessScore] = useState<number>(0); // Track NumberGuess score
 
   // Create a unique key for each GraphView run
   const graphViewKey = `graphview-${graphRunCount}`;
@@ -60,34 +61,38 @@ export const Game: React.FC<GameProps> = ({ party }) => {
     if (graphRunCount + 1 < graphTotalRuns) {
       setGraphRunCount((prevCount) => prevCount + 1); // Increase run count to rerun GraphView
     } else {
-      // All runs complete, switch to NumberGuess
+      // After GraphView, move to NumberGuess
       setGameModeStep("numberGuess");
     }
   };
 
   // Handle NumberGuess completion
   const handleNumberGuessComplete = (finalScore: number) => {
-    setNumberGuessScore(finalScore); // Save the NumberGuess final score
-    setView("done"); // Move to the done view after NumberGuess
+    setNumberGuessScore(finalScore); // Save the final score from NumberGuess
+    console.log("Number Guess Final Score:", finalScore);
+
+    // After NumberGuess, update user score and move to done view
+    updateUserScoreInLocalStorage();
+    party();
+    setView("done");
   };
 
   // Calculate the final game score as a number
   const calculateGameFinalScore = (): number => {
-    if (!overallScore || graphScores.length === 0 || numberGuessScore === null)
-      return 0;
+    if (!overallScore || graphScores.length === 0) return 0;
 
     const averageGraphScore =
       graphScores.reduce((a, b) => a + b, 0) / graphScores.length; // Average graph scores
     const quizScore = overallScore["Quiz Score"]; // Quiz score is a percentage
 
-    // Combine quiz score, average graph score, and number guess score
+    // Combine quiz score, average graph score, and NumberGuess score
     return quizScore + averageGraphScore + numberGuessScore;
   };
 
   // Update user score and save it to local storage using the unique ID
   const updateUserScoreInLocalStorage = () => {
     if (userData && userId) {
-      const finalScore = calculateGameFinalScore();
+    const finalScore = calculateGameFinalScore(); // Round the score here
 
       // Retrieve the existing user data from localStorage
       const storedData = getFromLocalStorage("user") as Storage; // Cast to Storage
@@ -111,6 +116,7 @@ export const Game: React.FC<GameProps> = ({ party }) => {
   function roundToThree(num: number): number {
     return Math.round(num * 1000);
   }
+
   // Handle user registration completion
   const handleRegistrationComplete = (userData: GameData, userId: string) => {
     setUserData(userData); // Save the user data
@@ -163,7 +169,7 @@ export const Game: React.FC<GameProps> = ({ party }) => {
         <div className="game-complete-container">
           <div className="game-complete-left">
             <h2>{userData.name}!</h2>
-            <p>Poengsum: {roundToThree(calculateGameFinalScore())}</p>{" "}
+            <p>Skår: {roundToThree(calculateGameFinalScore())}</p>{" "}
           </div>
           <div className="game-complete-right">
             <Leaderboard />
