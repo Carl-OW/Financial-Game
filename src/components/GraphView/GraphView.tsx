@@ -2,8 +2,8 @@ import DrawingCanvas from "./DrawingCanvas/DrawingCanvas";
 import Graph from "./Graph/Graph";
 
 import styles from "./graphview.module.scss";
-import { data } from "./db/population";
 import React from "react";
+import { fetchData, ParsedData } from "./GraphService";
 
 export const GraphView = () => {
   const [graphHeight, setGraphHeight] = React.useState(0);
@@ -11,6 +11,8 @@ export const GraphView = () => {
   const [referenceGraph, setReferenceGraph] = React.useState<number[][] | null>(
     null
   );
+
+  const [data, setData] = React.useState<null | ParsedData>(null);
   const heightChange = (val: number) => {
     setGraphHeight(val);
   };
@@ -20,6 +22,14 @@ export const GraphView = () => {
       setScore(calculateMatrixLikeness(matrix, referenceGraph));
     }
   };
+
+  React.useEffect(() => {
+    const fetch = async () => {
+      const t = await fetchData("https://www.ssb.no/statbank/sq/10101575");
+      setData(t);
+    };
+    fetch();
+  }, []);
 
   function calculateMatrixLikeness(
     matrix1: number[][],
@@ -91,22 +101,24 @@ export const GraphView = () => {
   }
 
   return (
-    <>
-      <h1>Score: {score}</h1>
-      <h2>{data.title}</h2>
-      <p>{data.description}</p>
-      <div className={styles.graphArea}>
-        <div className={styles.graph}>
-          <Graph
-            onRendered={setReferenceGraph}
-            heightChange={heightChange}
-            data={data.data}
-          />
+    data && (
+      <>
+        <h1>Score: {score}</h1>
+        <h2>{data.title}</h2>
+        <p>{data.description}</p>
+        <div className={styles.graphArea}>
+          <div className={styles.graph}>
+            <Graph
+              onRendered={setReferenceGraph}
+              heightChange={heightChange}
+              data={data.data}
+            />
+          </div>
+          <div className={styles.drawArea}>
+            <DrawingCanvas onFinished={onFinished} graphHeight={graphHeight} />
+          </div>
         </div>
-        <div className={styles.drawArea}>
-          <DrawingCanvas onFinished={onFinished} graphHeight={graphHeight} />
-        </div>
-      </div>
-    </>
+      </>
+    )
   );
 };

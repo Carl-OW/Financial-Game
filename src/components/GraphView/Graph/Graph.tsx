@@ -24,7 +24,7 @@ ChartJS.register(
 
 type DataPoint = {
   year: number;
-  populationGrowth: number | null;
+  value: number | null;
 };
 
 type GraphProps = {
@@ -52,8 +52,7 @@ const Graph: React.FC<GraphProps> = ({ data, heightChange, onRendered }) => {
     labels: data.map((point) => point.year), // X-axis labels (years)
     datasets: [
       {
-        label: "Population Growth (%)",
-        data: data.map((point) => point.populationGrowth), // Y-axis values (population growth)
+        data: data.map((point) => point.value), // Y-axis values (population growth)
         borderColor: "#00824d", // Line color
         backgroundColor: "rgba(75, 192, 192, 0.2)", // Area under the line
         borderWidth: 2, // Line width
@@ -116,7 +115,6 @@ const Graph: React.FC<GraphProps> = ({ data, heightChange, onRendered }) => {
       y: {
         title: {
           display: true,
-          text: "Population Growth (%)",
         },
         beginAtZero: false, // Don't force Y axis to start at 0
       },
