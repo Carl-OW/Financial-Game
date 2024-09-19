@@ -5,6 +5,7 @@ import Quiz from "../Quiz/Quiz"; // Adjust path based on structure
 import { QuizScore } from "./QuizTypes"; // Import the types
 import { GameData } from "../../type/users"; // Import your GameData type
 import Leaderboard from "../Leaderboard/Leaderboard"; // Import Leaderboard component
+import { GraphView } from "../GraphView/GraphView"; // Import GraphView
 
 function Game() {
   const [view, setView] = useState<"home" | "quiz" | "userReg" | "done">(
@@ -15,12 +16,19 @@ function Game() {
   const [userRegistered, setUserRegistered] = useState<boolean>(false); // Track if user has registered
   const [userData, setUserData] = useState<GameData | null>(null); // Track user data
 
+  // New state to control game mode steps
+  const [gameModeStep, setGameModeStep] = useState<"quiz" | "graphView">(
+    "quiz"
+  );
+
   // Handle the quiz ending and storing the score
   const handleQuizEnd = (scoreObject: QuizScore) => {
     setOverallScore(scoreObject);
     setQuizScores([...quizScores, scoreObject]); // Save the score for later calculations
     console.log("Quiz Score:", scoreObject["Quiz Score"]); // Print out the final quiz score
-    setView("done");
+
+    // After the quiz ends, switch to graph view
+    setGameModeStep("graphView");
   };
 
   // Handle user registration completion
@@ -28,7 +36,7 @@ function Game() {
     setUserData(userData); // Save the user data
     console.log("Registered User:", userData); // Log the user data
     setUserRegistered(true);
-    setView("quiz");
+    setView("quiz"); // After registration, go to quiz view
   };
 
   return (
@@ -45,10 +53,15 @@ function Game() {
         <UserRegistration onRegistrationComplete={handleRegistrationComplete} />
       )}
 
-      {/* Quiz Game Mode view */}
+      {/* Quiz and GraphView in GameMode */}
       {view === "quiz" && userRegistered && (
         <GameMode>
-          <Quiz onQuizEnd={handleQuizEnd} />
+          {gameModeStep === "quiz" && (
+            <Quiz onQuizEnd={handleQuizEnd} /> // Quiz first
+          )}
+          {gameModeStep === "graphView" && (
+            <GraphView /> // Show GraphView after quiz completion
+          )}
         </GameMode>
       )}
 
