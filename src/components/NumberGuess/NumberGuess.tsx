@@ -19,9 +19,11 @@ const {
 const NumberGuess: React.FC<QuizProps> = ({ onQuizEnd }) => {
   const [value, updateValue] = useState(preselectedValue);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [disableSlider, setDisableSlider] = useState(false);
 
   function reveal() {
     setShowAnswer(!showAnswer);
+    setDisableSlider(true);
   }
 
   function calculateWeightedScore(
@@ -57,6 +59,7 @@ const NumberGuess: React.FC<QuizProps> = ({ onQuizEnd }) => {
           {questionText}
         </label>
         <input
+          disabled={disableSlider}
           className="slider"
           onChange={(e) => updateValue(Number(e.target.value))}
           type="range"
@@ -74,7 +77,7 @@ const NumberGuess: React.FC<QuizProps> = ({ onQuizEnd }) => {
           Du gjetta: {value} {format}
         </h2>
         {showAnswer && (
-          <div>
+          <>
             <h2 className="facit">Riktig svar var: {correctAnswer}%</h2>
             <h2 className="weightedpoints">
               Du fikk {calculateWeightedScore(value, correctAnswer)} vektede
@@ -91,7 +94,7 @@ const NumberGuess: React.FC<QuizProps> = ({ onQuizEnd }) => {
             >
               Neste
             </button>
-          </div>
+          </>
         )}
       </div>
     </div>
