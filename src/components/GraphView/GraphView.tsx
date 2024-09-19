@@ -36,7 +36,7 @@ export const GraphView = ({
     null
   );
 
-  const [seconds, setSeconds] = React.useState<number>(5);
+  const [seconds, setSeconds] = React.useState<number>(3);
 
   const [data, setData] = React.useState<null | ParsedData>(null);
 
@@ -54,7 +54,7 @@ export const GraphView = ({
       }, 1000);
       setTimeout(() => {
         onGraphComplete(calculatedScore); // Pass the score to the parent component (Game.tsx)
-      }, 4950);
+      }, 2950);
     }
   };
 
