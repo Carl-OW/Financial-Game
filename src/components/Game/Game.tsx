@@ -6,7 +6,7 @@ import { QuizScore } from "./QuizTypes"; // Import the types
 import { GameData } from "../../type/users"; // Import your GameData type
 import Leaderboard from "../Leaderboard/Leaderboard"; // Import Leaderboard component
 import { GraphView } from "../GraphView/GraphView"; // Import GraphView
-import { addToLocalStorage } from "../../lib/localStorage"; // Import local storage utility
+import { addToLocalStorage, getFromLocalStorage } from "../../lib/localStorage"; // Import local storage utility
 import { graphEntries } from "../GraphView/db/db";
 import { shuffleArray } from "../GraphView/GraphService";
 
@@ -24,6 +24,7 @@ export const Game: React.FC<GameProps> = ({ party }) => {
   const [quizScores, setQuizScores] = useState<QuizScore[]>([]); // Store all quiz scores
   const [userRegistered, setUserRegistered] = useState<boolean>(false); // Track if user has registered
   const [userData, setUserData] = useState<GameData | null>(null); // Track user data
+  const [userId, setUserId] = useState<string | null>(null); // Track unique user ID
 
   // State to control GraphView reruns and scores
   const [graphScores, setGraphScores] = useState<number[]>([]); // Array to store graph scores
@@ -76,21 +77,24 @@ export const Game: React.FC<GameProps> = ({ party }) => {
     return quizScore + averageGraphScore;
   };
 
-  // Update user score and save it to local storage
+  // Update user score and save it to local storage using the unique ID
   const updateUserScoreInLocalStorage = () => {
-    if (userData) {
+    if (userData && userId) {
       const finalScore = calculateGameFinalScore();
+
+      // Retrieve the existing user data from localStorage
+      const storedData = getFromLocalStorage("user") as Storage; // Cast to Storage
 
       // Update userData with the final score
       const updatedUserData = {
+        ...storedData[userId], // Use existing data from localStorage
         ...userData,
-        score: finalScore,
+        score: finalScore, // Update score
       };
-      setUserData(updatedUserData); // Update the userData state
 
-      // Save the updated user data to local storage
+      // Save the updated user data to local storage using the unique ID
       addToLocalStorage("user", {
-        [userData.name]: updatedUserData,
+        [userId]: updatedUserData,
       });
 
       console.log("User score updated in localStorage:", updatedUserData);
@@ -98,9 +102,10 @@ export const Game: React.FC<GameProps> = ({ party }) => {
   };
 
   // Handle user registration completion
-  const handleRegistrationComplete = (userData: GameData) => {
+  const handleRegistrationComplete = (userData: GameData, userId: string) => {
     setUserData(userData); // Save the user data
-    console.log("Registered User:", userData); // Log the user data
+    setUserId(userId); // Save the unique user ID
+    console.log("Registered User:", userData, "UserID:", userId); // Log the user data and ID
     setUserRegistered(true);
     setView("quiz"); // After registration, go to quiz view
   };
