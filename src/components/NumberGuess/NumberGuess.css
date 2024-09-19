@@ -1,4 +1,41 @@
+
+.number-guess {
+  padding: 30px;
+  border-radius: 10px;
+  background-color: salmon;
+  margin: 0 auto;
+  max-width: 1000px;
+  display: grid;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-template-areas: 
+  "theme question question"
+  "slider slider slider"
+  "guess guess reveal"
+  "facit facit facit"
+  "weightedpoints weightedpoints weightedpoints"
+}
+.question {
+  grid-area: question;
+  font-size: 1em;
+}
+.slider {
+  grid-area: slider;
+  flex: 1;
+  margin: 0 10px;
+}
+.guess{
+  grid-area: guess;
+}
+.theme {
+  grid-area: theme;
+}
+.reveal{
+  grid-area: reveal;
+
+}
 .facit {
+  grid-area: facit;
   color: hotpink;
 }
 .points {
@@ -8,5 +45,7 @@
   color: powderblue;
 }
 .betterpoints {
+  grid-area: weightedpoints;
   color: lightgreen;
 }
+
