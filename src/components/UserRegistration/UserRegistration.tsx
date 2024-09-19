@@ -10,9 +10,9 @@ function generateUUID(name: string) {
   return hash.substring(0, 10);
 }
 
-const UserRegistration: React.FC<{ onRegistrationComplete: () => void }> = ({
-  onRegistrationComplete,
-}) => {
+const UserRegistration: React.FC<{
+  onRegistrationComplete: (userData: GameData) => void;
+}> = ({ onRegistrationComplete }) => {
   const [name, setName] = useState("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -32,8 +32,8 @@ const UserRegistration: React.FC<{ onRegistrationComplete: () => void }> = ({
       [generateUUID(name)]: userData,
     });
 
-    // Trigger game start after registration is complete
-    onRegistrationComplete();
+    // Pass the userData object back to the parent component
+    onRegistrationComplete(userData);
   };
 
   return (
