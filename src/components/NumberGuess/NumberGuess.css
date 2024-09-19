@@ -1,9 +1,33 @@
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-.number-guess {
-  padding: 30px;
-  border-radius: 10px;
-  background-color: salmon;
+.gague-container {
+    width: 590px;
+  max-width: 600px;
   margin: 0 auto;
+  margin-bottom: 200px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: all 0.1s ease-in-out;
+}
+.number-guess {
+    padding: 30px;
+  border-radius: 10px;
+  background-color: cream;
   max-width: 1000px;
   display: grid;
   grid-column-gap: 10px;
@@ -14,6 +38,7 @@
   "guess guess reveal"
   "facit facit facit"
   "weightedpoints weightedpoints weightedpoints"
+  ". . next";
 }
 .question {
   grid-area: question;
@@ -32,20 +57,18 @@
 }
 .reveal{
   grid-area: reveal;
-
+}
+.next {
+  grid-area: next;
 }
 .facit {
   grid-area: facit;
   color: hotpink;
 }
-.points {
-  color: peachpuff;
-}
+
 .weightedpoints {
   color: powderblue;
 }
-.betterpoints {
-  grid-area: weightedpoints;
-  color: lightgreen;
-}
+
+
 

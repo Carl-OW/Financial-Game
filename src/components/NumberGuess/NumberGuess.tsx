@@ -50,44 +50,45 @@ const NumberGuess: React.FC<GagueData> = ({
   // }
 
   return (
-    <div className="number-guess">
-      <h2 className="theme">{theme}</h2>
-      <label htmlFor="percentPicker" className="question">
-        {questionText}
-      </label>
-      {/* <StyledSlider
+    <div className="gague-container">
+      <div className="number-guess">
+        <h2 className="theme">{theme}</h2>
+        <label htmlFor="percentPicker" className="question">
+          {questionText}
+        </label>
+        {/* <StyledSlider
         presetValue={value}
         maxValue={maximumValue}
         minValue={minimumValue}
       /> */}
-      <input
-        className="slider"
-        onChange={(e) => updateValue(Number(e.target.value))}
-        type="range"
-        value={value}
-        id="percentPicker"
-        name="percentPicker"
-        min={minimumValue}
-        max={maximumValue}
-        step="1"
-      />
-      <button className="reveal" onClick={reveal}>
-        Vis svar
-      </button>
-      <h2 className="guess">
-        Du gjetta: {value} {format}
-      </h2>
-      {showAnswer && (
-        <div>
-          <h2 className="facit">Riktig svar var: {correctAnswer}%</h2>
-          {/* <h2 className="points">
+        <input
+          className="slider"
+          onChange={(e) => updateValue(Number(e.target.value))}
+          type="range"
+          value={value}
+          id="percentPicker"
+          name="percentPicker"
+          min={minimumValue}
+          max={maximumValue}
+          step="1"
+        />
+        <button className="reveal" onClick={reveal}>
+          Vis svar
+        </button>
+        <h2 className="guess">
+          Du gjetta: {value} {format}
+        </h2>
+        {showAnswer && (
+          <div>
+            <h2 className="facit">Riktig svar var: {correctAnswer}%</h2>
+            {/* <h2 className="points">
             Du fikk {calculateScore(value, correctAnswer)} poeng!
           </h2> */}
-          <h2 className="weightedpoints">
-            Du fikk {calculateWeightedScore(value, correctAnswer)} vektede
-            poeng!
-          </h2>
-          {/* <h2 className="betterpoints">
+            <h2 className="weightedpoints">
+              Du fikk {calculateWeightedScore(value, correctAnswer)} vektede
+              poeng!
+            </h2>
+            {/* <h2 className="betterpoints">
             Du fikk{' '}
             {calculateBetterScore(
               value,
@@ -97,19 +98,20 @@ const NumberGuess: React.FC<GagueData> = ({
             )}{' '}
             forbedrede poeng!
           </h2> */}
-          <button
-            className="next"
-            onClick={() => {
-              onQuizEnd({
-                'Quiz Score': calculateWeightedScore(value, correctAnswer),
-              });
-              setShowAnswer(false);
-            }}
-          >
-            Neste
-          </button>
-        </div>
-      )}
+            <button
+              className="next"
+              onClick={() => {
+                onQuizEnd({
+                  'Quiz Score': calculateWeightedScore(value, correctAnswer),
+                });
+                setShowAnswer(false);
+              }}
+            >
+              Neste
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
