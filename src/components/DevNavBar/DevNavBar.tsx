@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { GraphView } from "../GraphView/GraphView";
 import UserRegistration from "../UserRegistration/UserRegistration";
 import Leaderboard from "../Leaderboard/Leaderboard";
@@ -22,8 +22,21 @@ export const DevNavBar: React.FC<DevNavBarProps> = ({ party }) => {
     setView(selectedView); // Set the selected view and hide the navbar
   };
 
+  const reset = () => {
+    handleClick("show nothing");
+    window.setTimeout(() => {
+      handleClick("Game");
+    }, 100);
+  };
+
   return (
     <>
+      <button
+        onClick={reset}
+        style={{ position: "absolute", top: 10, right: 10 }}
+      >
+        Reset
+      </button>
       {/* Only render the navbar if no view is selected */}
       {!view && (
         <div className="dev-navbar">
