@@ -2,13 +2,19 @@ import DrawingCanvas from "./DrawingCanvas/DrawingCanvas";
 import Graph from "./Graph/Graph";
 import styles from "./graphview.module.scss";
 import React from "react";
-import { fetchData, ParsedData, shuffleArray } from "./GraphService";
-import { graphEntries } from "./db/db";
+import { fetchData, ParsedData } from "./GraphService";
+import { PropagateLoader } from "react-spinners";
 
 export const GraphView = ({
   onGraphComplete,
+  indicator,
+  question,
+  url,
 }: {
   onGraphComplete: (score: number) => void;
+  question: string;
+  indicator: string;
+  url: string;
 }) => {
   const [graphHeight, setGraphHeight] = React.useState(0);
   const [score, setScore] = React.useState(0);
@@ -30,11 +36,9 @@ export const GraphView = ({
     }
   };
 
-  const shuffled = shuffleArray(graphEntries);
-
   React.useEffect(() => {
     const fetch = async () => {
-      const t = await fetchData(shuffled[0].savedQuery);
+      const t = await fetchData(url);
       setData(t);
     };
     fetch();
@@ -110,11 +114,16 @@ export const GraphView = ({
   }
 
   return (
-    data && (
+    (!data && (
+      <div style={{ width: "500px" }}>
+        <PropagateLoader color="#1a9d49" size="100" />
+      </div>
+    )) ||
+    (data && (
       <>
         {/* <h1>Score: {score}</h1> */}
-        <h2>{shuffled[0].question}</h2>
-        <p>{shuffled[0].indicator}</p>
+        <h2>{question}</h2>
+        <p>{indicator}</p>
         <div className={styles.graphArea}>
           <div className={styles.graph}>
             <Graph
@@ -128,6 +137,6 @@ export const GraphView = ({
           </div>
         </div>
       </>
-    )
+    ))
   );
 };

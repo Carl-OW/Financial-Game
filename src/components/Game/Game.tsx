@@ -6,6 +6,10 @@ import { QuizScore } from "./QuizTypes"; // Import the types
 import { GameData } from "../../type/users"; // Import your GameData type
 import Leaderboard from "../Leaderboard/Leaderboard"; // Import Leaderboard component
 import { GraphView } from "../GraphView/GraphView"; // Import GraphView
+import { graphEntries } from "../GraphView/db/db";
+import { shuffleArray } from "../GraphView/GraphService";
+
+const shuffledGraphViews = shuffleArray(graphEntries);
 
 function Game() {
   const [view, setView] = useState<"home" | "quiz" | "userReg" | "done">(
@@ -82,6 +86,9 @@ function Game() {
           )}
           {gameModeStep === "graphView" && (
             <GraphView
+              indicator={shuffledGraphViews[graphRunCount].indicator}
+              url={shuffledGraphViews[graphRunCount].savedQuery}
+              question={shuffledGraphViews[graphRunCount].question}
               key={graphViewKey} // Use the unique key to rerender GraphView
               onGraphComplete={handleGraphComplete}
             /> // Show GraphView after quiz completion
