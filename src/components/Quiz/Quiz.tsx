@@ -31,10 +31,6 @@ const themeIcons: { [key: string]: string[] } = {
   Priser: ["/QuizIcons/icon_priser_0.png", "/QuizIcons/icon_priser_1.png"],
 };
 
-function shuffleArray(array: any[]) {
-  return array.sort(() => Math.random() - 0.5);
-}
-
 function getRandomQuestionFromEachTheme(
   themes: { theme: string; questions: QuestionWithTheme[] }[]
 ): QuestionWithTheme[] {
@@ -83,10 +79,9 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
     }
   }, [timer, selectedOption]);
 
-  // Load questions and shuffle options
+  // Load questions
   useEffect(() => {
-    const shuffledThemes = shuffleArray(quizData.themes);
-    const selectedQuestions = getRandomQuestionFromEachTheme(shuffledThemes);
+    const selectedQuestions = getRandomQuestionFromEachTheme(quizData.themes as any);
     setQuestions(selectedQuestions);
     setStartTime(Date.now());
     // Set the initial background based on the first question
@@ -100,12 +95,12 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
     };
   }, []);
 
-  // Randomize options and choose random icon for each question
+  // Set options and random icon for each question
   useEffect(() => {
     if (questions.length > 0) {
       const question = questions[currentQuestionIndex];
-      const shuffledOptions = shuffleArray(Object.entries(question.options));
-      setRandomizedOptions(shuffledOptions);
+      const options = Object.entries(question.options);
+      setRandomizedOptions(options);
 
       // Set background for each question
       setBodyBackground(themeBackgrounds[question.theme]);
@@ -193,45 +188,44 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
     setScore((prevScore) => prevScore + questionScore);
   };
 
-const handleNextQuestion = () => {
-  const nextRoundCount = roundCount + 1;
-  setRoundCount(nextRoundCount);
+  const handleNextQuestion = () => {
+    const nextRoundCount = roundCount + 1;
+    setRoundCount(nextRoundCount);
 
-  // Apply reset class to remove feedback before moving to the next question
-  const allOptions = document.querySelectorAll(".option");
-  allOptions.forEach((option) => {
-    option.classList.add("reset");
-  });
+    // Apply reset class to remove feedback before moving to the next question
+    const allOptions = document.querySelectorAll(".option");
+    allOptions.forEach((option) => {
+      option.classList.add("reset");
+    });
 
-  if (nextRoundCount < questions.length) {
-    setTimeout(() => {
-      // Move to the next question
-      setSelectedOption(null);
-      setFeedbackClass(null);
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      setTimer(10);
-      setStartTime(Date.now());
+    if (nextRoundCount < questions.length) {
+      setTimeout(() => {
+        // Move to the next question
+        setSelectedOption(null);
+        setFeedbackClass(null);
+        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        setTimer(10);
+        setStartTime(Date.now());
 
-      // Remove the reset class after moving to the next question
-      allOptions.forEach((option) => {
-        option.classList.remove("reset");
-      });
-    }, 300); // Delay to allow the reset to be visible
-  } else {
-    const finalScore = calculateFinalScore();
-    setQuizEnded(true);
+        // Remove the reset class after moving to the next question
+        allOptions.forEach((option) => {
+          option.classList.remove("reset");
+        });
+      }, 300); // Delay to allow the reset to be visible
+    } else {
+      const finalScore = calculateFinalScore();
+      setQuizEnded(true);
 
-    const scoreObject = { "Quiz Score": finalScore };
-    console.log(scoreObject);
+      const scoreObject = { "Quiz Score": finalScore };
+      console.log(scoreObject);
 
-    // Print out the total time spent and correct answers in the console
-    console.log(`Total Time Spent: ${totalTimeSpent.toFixed(2)} seconds`);
-    console.log(`Correct Answers: ${correctAnswers}`);
+      // Print out the total time spent and correct answers in the console
+      console.log(`Total Time Spent: ${totalTimeSpent.toFixed(2)} seconds`);
+      console.log(`Correct Answers: ${correctAnswers}`);
 
-    onQuizEnd(scoreObject);
-  }
-};
-
+      onQuizEnd(scoreObject);
+    }
+  };
 
   const calculateFinalScore = () => {
     if (individualScores.length === 0) return 0;
