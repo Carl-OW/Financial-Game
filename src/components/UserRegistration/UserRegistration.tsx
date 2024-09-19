@@ -1,19 +1,20 @@
-import React, { FormEvent, useState } from "react";
-import "./UserRegistration.css";
-import md5 from "md5";
-import { addToLocalStorage } from "../../lib/localStorage";
-import { GameData } from "../../type/users"; // Import your GameData type
+import React, { FormEvent, useState } from 'react';
+import './UserRegistration.css';
+import md5 from 'md5';
+import { getFromLocalStorage, addToLocalStorage } from '../../lib/localStorage';
+import { GameData } from '../../type/users'; // Import your GameData type
 
 // Generate a short, unique hash from the name
 function generateUUID(name: string) {
   const hash = md5(name.toLowerCase());
   return hash.substring(0, 10);
 }
+const config = getFromLocalStorage('admin');
 
 const UserRegistration: React.FC<{
   onRegistrationComplete: (userData: GameData) => void;
 }> = ({ onRegistrationComplete }) => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -23,12 +24,12 @@ const UserRegistration: React.FC<{
     // Create the user object
     const userData: GameData = {
       name,
-      email: "", // Email is not required
+      email: '', // Email is not required
       score: 0, // Initial score is 0
     };
 
     // Store the user data in local storage using a unique ID
-    addToLocalStorage("user", {
+    addToLocalStorage('user', {
       [generateUUID(name)]: userData,
     });
 
@@ -51,6 +52,14 @@ const UserRegistration: React.FC<{
           onChange={(e) => setName(e.target.value)}
           required
         />
+        {config && config.getEmail == true && (
+          <>
+            <label htmlFor="email" className="emailLabel">
+              Kan vi få mailen din?
+            </label>
+            <input type="text" id="email" name="email"></input>
+          </>
+        )}
         <button type="submit">START</button>
       </form>
     </div>
