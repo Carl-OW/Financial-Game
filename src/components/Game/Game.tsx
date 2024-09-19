@@ -3,6 +3,8 @@ import "./Game.css"; // Ensure the CSS exists
 import UserRegistration from "../UserRegistration/UserRegistration";
 import Quiz from "../Quiz/Quiz"; // Adjust path based on structure
 import { QuizScore } from "./QuizTypes"; // Import the types
+import { GameData } from "../../type/users"; // Import your GameData type
+import Leaderboard from "../Leaderboard/Leaderboard"; // Import Leaderboard component
 
 function Game() {
   const [view, setView] = useState<"home" | "quiz" | "userReg" | "done">(
@@ -11,6 +13,7 @@ function Game() {
   const [overallScore, setOverallScore] = useState<QuizScore | null>(null);
   const [quizScores, setQuizScores] = useState<QuizScore[]>([]); // Store all quiz scores
   const [userRegistered, setUserRegistered] = useState<boolean>(false); // Track if user has registered
+  const [userData, setUserData] = useState<GameData | null>(null); // Track user data
 
   // Handle the quiz ending and storing the score
   const handleQuizEnd = (scoreObject: QuizScore) => {
@@ -21,7 +24,9 @@ function Game() {
   };
 
   // Handle user registration completion
-  const handleRegistrationComplete = () => {
+  const handleRegistrationComplete = (userData: GameData) => {
+    setUserData(userData); // Save the user data
+    console.log("Registered User:", userData); // Log the user data
     setUserRegistered(true);
     setView("quiz");
   };
@@ -47,18 +52,25 @@ function Game() {
         </GameMode>
       )}
 
-      {/* Game end view showing final results */}
-      {view === "done" && overallScore && (
-        <div className="game-complete">
-          <h2>Game Complete!</h2>
-          <p>Overall Quiz Score: {overallScore["Quiz Score"]}%</p>
-          <div>
-            All Stored Scores:
-            {quizScores.map((score, index) => (
-              <div key={index}>
-                Quiz {index + 1} Score: {score["Quiz Score"]}%
-              </div>
-            ))}
+      {/* Game end view showing final results and leaderboard */}
+      {view === "done" && overallScore && userData && (
+        <div className="game-complete-container">
+          <div className="game-complete-left">
+            <h2>Game Complete!</h2>
+            <p>Thank you, {userData.name}!</p>
+            <p>Overall Quiz Score: {overallScore["Quiz Score"]}%</p>
+            <div>
+              All Stored Scores:
+              {quizScores.map((score, index) => (
+                <div key={index}>
+                  Quiz {index + 1} Score: {score["Quiz Score"]}%
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="game-complete-right">
+            <Leaderboard />
           </div>
         </div>
       )}
