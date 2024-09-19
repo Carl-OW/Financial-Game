@@ -6,12 +6,15 @@ interface Position {
 }
 interface DrawingCanvasProps {
   graphHeight: number;
+  onFinished: (matrix: number[][]) => void;
 }
 
-const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ graphHeight }) => {
+const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
+  graphHeight,
+  onFinished,
+}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [drawnPositions, setDrawnPositions] = useState<Position[]>([]);
-  const [matrixOutput, setMatrixOutput] = useState<string>("");
   const [background, setBackground] = useState<boolean>(true);
   const [drawingMode, setDrawingMode] = useState<boolean>(true);
 
@@ -47,7 +50,7 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ graphHeight }) => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 2;
     ctx.lineCap = "round";
     ctx.strokeStyle = "#00824d";
 
@@ -84,9 +87,7 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ graphHeight }) => {
       }
     });
 
-    // Set the matrix as a string output
-    setMatrixOutput(JSON.stringify(matrix, null, 2));
-    console.log(matrix);
+    onFinished(matrix);
   };
 
   const cleanCanvas = () => {
