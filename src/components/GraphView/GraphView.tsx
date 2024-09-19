@@ -31,9 +31,12 @@ export const GraphView = ({
 }) => {
   const [graphHeight, setGraphHeight] = React.useState(0);
   const [score, setScore] = React.useState(0);
+  const [showCountdown, setShowCountdown] = React.useState<boolean>(false);
   const [referenceGraph, setReferenceGraph] = React.useState<number[][] | null>(
     null
   );
+
+  const [seconds, setSeconds] = React.useState<number>(5);
 
   const [data, setData] = React.useState<null | ParsedData>(null);
 
@@ -42,10 +45,16 @@ export const GraphView = ({
   };
 
   const onFinished = (matrix: number[][]) => {
+    setShowCountdown(true);
     if (referenceGraph) {
       const calculatedScore = calculateMatrixLikeness(matrix, referenceGraph);
       setScore(calculatedScore);
-      onGraphComplete(calculatedScore); // Pass the score to the parent component (Game.tsx)
+      setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+      setTimeout(() => {
+        onGraphComplete(calculatedScore); // Pass the score to the parent component (Game.tsx)
+      }, 4950);
     }
   };
 
@@ -168,6 +177,21 @@ export const GraphView = ({
           <div className={styles.drawArea}>
             <DrawingCanvas onFinished={onFinished} graphHeight={graphHeight} />
           </div>
+          {showCountdown && (
+            <div
+              style={{
+                position: "absolute",
+                left: "50px",
+                border: "1px solid black",
+                padding: "8px",
+                margin: "8px",
+                lineHeight: "8px",
+                backgroundColor: "white",
+              }}
+            >
+              <h3>Neste graf kommer om {seconds} sekunder</h3>
+            </div>
+          )}
         </div>
       </div>
     ))

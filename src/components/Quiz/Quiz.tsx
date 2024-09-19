@@ -81,7 +81,9 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
 
   // Load questions
   useEffect(() => {
-    const selectedQuestions = getRandomQuestionFromEachTheme(quizData.themes as any);
+    const selectedQuestions = getRandomQuestionFromEachTheme(
+      quizData.themes as any
+    );
     setQuestions(selectedQuestions);
     setStartTime(Date.now());
     // Set the initial background based on the first question

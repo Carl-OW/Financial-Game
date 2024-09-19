@@ -1,4 +1,6 @@
 import React, { useRef, useState, MouseEvent } from "react";
+import styles from "./DrawingCanvas.module.scss";
+
 interface Position {
   x: number;
   y: number;
@@ -49,7 +51,7 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 4;
     ctx.lineCap = "round";
     ctx.strokeStyle = "#00824d";
 
@@ -99,16 +101,15 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
       console.error("Failed to get 2D rendering context");
     }
   };
-
   return (
     <div style={{ position: "relative", width: "400px" }}>
       <canvas
         ref={canvasRef}
+        className={styles.rainbow}
         width="400"
         height={graphHeight}
         style={{
           border: "4px dashed black",
-          cursor: drawingMode ? "crosshair" : "",
           background: background ? "white" : "none",
           position: "absolute",
           top: "0",

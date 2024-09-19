@@ -12,7 +12,11 @@ import { shuffleArray } from "../GraphView/GraphService";
 
 const shuffledGraphViews = shuffleArray(graphEntries);
 
-function Game() {
+type GameProps = {
+  party: (ms?: number) => void;
+};
+
+export const Game: React.FC<GameProps> = ({ party }) => {
   const [view, setView] = useState<"home" | "quiz" | "userReg" | "done">(
     "home"
   );
@@ -55,6 +59,7 @@ function Game() {
     } else {
       // All runs complete, update user score and move to done view
       updateUserScoreInLocalStorage();
+      party();
       setView("done");
     }
   };
@@ -169,7 +174,7 @@ function Game() {
       )}
     </div>
   );
-}
+};
 
 // GameMode component to encapsulate game mode logic
 interface GameModeProps {
@@ -179,5 +184,3 @@ interface GameModeProps {
 const GameMode: React.FC<GameModeProps> = ({ children }) => {
   return <div className="game-mode">{children}</div>;
 };
-
-export default Game;

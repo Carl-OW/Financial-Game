@@ -1,0 +1,27 @@
+.rainbow {
+  animation: rainbowAnim 5s infinite;
+}
+
+@keyframes rainbowAnim {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  16% {
+    filter: hue-rotate(60deg);
+  }
+  32% {
+    filter: hue-rotate(120deg);
+  }
+  48% {
+    filter: hue-rotate(180deg);
+  }
+  64% {
+    filter: hue-rotate(240deg);
+  }
+  80% {
+    filter: hue-rotate(300deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}

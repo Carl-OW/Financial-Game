@@ -3,7 +3,7 @@ import { GraphView } from "../GraphView/GraphView";
 import UserRegistration from "../UserRegistration/UserRegistration";
 import Leaderboard from "../Leaderboard/Leaderboard";
 import Admin from "../Admin/Admin";
-import Game from "../Game/Game";
+import { Game } from "../Game/Game";
 import NumberGuess from "../NumberGuess/NumberGuess";
 import numberData from "../NumberGuess/numberData.json";
 import { graphEntries } from "../GraphView/db/db";
@@ -11,7 +11,11 @@ import { shuffleArray } from "../GraphView/GraphService";
 
 const shuffledGraphViews = shuffleArray(graphEntries);
 
-function DevNavBar() {
+type DevNavBarProps = {
+  party: (ms?: number) => void;
+};
+
+export const DevNavBar: React.FC<DevNavBarProps> = ({ party }) => {
   const [view, setView] = useState<string | null>(null);
 
   const handleClick = (selectedView: string) => {
@@ -54,10 +58,8 @@ function DevNavBar() {
         {view === "UserRegistration" && <UserRegistration />}
         {view === "Leaderboard" && <Leaderboard />}
         {view === "Admin" && <Admin />}
-        {view === "Game" && <Game />}
+        {view === "Game" && <Game party={party} />}
       </div>
     </>
   );
-}
-
-export default DevNavBar;
+};
