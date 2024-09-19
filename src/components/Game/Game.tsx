@@ -68,8 +68,10 @@ function Game() {
     <div className="game-container">
       {/* Home view where the user can start the game */}
       {view === "home" && (
-        <div className="start-game" onClick={() => setView("userReg")}>
-          Start Game
+        <div className="start-game-wrapper">
+          <div className="start-game" onClick={() => setView("userReg")}>
+            START SPILL
+          </div>
         </div>
       )}
 
