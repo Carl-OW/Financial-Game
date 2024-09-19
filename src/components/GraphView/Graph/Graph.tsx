@@ -52,7 +52,7 @@ const Graph: React.FC<GraphProps> = ({ data, heightChange, onRendered }) => {
     labels: data.map((point) => point.year), // X-axis labels (years)
     datasets: [
       {
-        data: data.map((point) => point.value), // Y-axis values (population growth)
+        data: data.map((point) => point.value), // Y-axis values
         borderColor: "#00824d", // Line color
         backgroundColor: "rgba(75, 192, 192, 0.2)", // Area under the line
         borderWidth: 2, // Line width

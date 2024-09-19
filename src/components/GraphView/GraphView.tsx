@@ -3,7 +3,8 @@ import Graph from "./Graph/Graph";
 
 import styles from "./graphview.module.scss";
 import React from "react";
-import { fetchData, ParsedData } from "./GraphService";
+import { fetchData, ParsedData, shuffleArray } from "./GraphService";
+import { graphEntries } from "./db/db";
 
 export const GraphView = () => {
   const [graphHeight, setGraphHeight] = React.useState(0);
@@ -23,9 +24,11 @@ export const GraphView = () => {
     }
   };
 
+  const shuffled = shuffleArray(graphEntries);
+
   React.useEffect(() => {
     const fetch = async () => {
-      const t = await fetchData("https://www.ssb.no/statbank/sq/10101575");
+      const t = await fetchData(shuffled[0].savedQuery);
       setData(t);
     };
     fetch();
@@ -103,9 +106,9 @@ export const GraphView = () => {
   return (
     data && (
       <>
-        <h1>Score: {score}</h1>
-        <h2>{data.title}</h2>
-        <p>{data.description}</p>
+        {/* <h1>Score: {score}</h1> */}
+        <h2>{shuffled[0].question}</h2>
+        <p>{shuffled[0].indicator}</p>
         <div className={styles.graphArea}>
           <div className={styles.graph}>
             <Graph

@@ -13,6 +13,15 @@ export interface ParsedData {
   data: DataItem[];
 }
 
+export function shuffleArray<T>(array: T[]): T[] {
+  const shuffledArray = [...array]; // Create a copy to avoid mutating the original array
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // Generate a random index
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]]; // Swap elements
+  }
+  return shuffledArray;
+}
+
 // Create a generic service for fetching and parsing the dataset
 export const fetchData = async (url: string): Promise<ParsedData> => {
   try {
