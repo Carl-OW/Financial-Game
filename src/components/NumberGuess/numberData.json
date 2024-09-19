@@ -1,0 +1,13 @@
+{
+  "numberData": [
+    {
+      "theme": "Miljø",
+      "questionText": "Hvor mange kilometer kjører en personbil i gjennomsnitt per år?",
+      "format": "Kilometer",
+      "correctAnswer": 11274,
+      "minimumValue": 5000,
+      "maximumValue": 15000,
+      "preselectedValue": 10000
+    }
+  ]
+}

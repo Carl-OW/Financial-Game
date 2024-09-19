@@ -5,6 +5,7 @@ import Leaderboard from '../Leaderboard/Leaderboard';
 import Admin from '../Admin/Admin';
 import Game from '../Game/Game';
 import NumberGuess from '../NumberGuess/NumberGuess';
+import numberData from '../NumberGuess/numberData.json';
 
 function DevNavBar() {
   const [view, setView] = useState<string | null>(null);
@@ -37,12 +38,7 @@ function DevNavBar() {
       {/* Render the selected view */}
       <div className="view-container">
         {view === 'graphview' && <GraphView />}
-        {view === 'numberview' && (
-          <NumberGuess
-            correctAnswer={29}
-            questionText="Hvor stor prosenandel av befolkningen har høyere utdanning?"
-          />
-        )}
+        {view === 'numberview' && <NumberGuess {...numberData.numberData[0]} />}
         {view === 'UserRegistration' && <UserRegistration />}
         {view === 'Leaderboard' && <Leaderboard />}
         {view === 'Admin' && <Admin />}
