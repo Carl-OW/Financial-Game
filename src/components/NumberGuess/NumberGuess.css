@@ -9,8 +9,8 @@ html {
 }
 
 .gague-container {
-    width: 590px;
-  max-width: 600px;
+    width: 890px;
+  max-width: 900px;
   margin: 0 auto;
   margin-bottom: 200px;
   padding: 20px;
@@ -26,12 +26,12 @@ html {
 }
 .number-guess {
     padding: 30px;
-  border-radius: 10px;
   background-color: cream;
-  max-width: 1000px;
   display: grid;
   grid-column-gap: 10px;
-  grid-row-gap: 10px;
+  grid-row-gap: 5px;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 
   "theme question question"
   "slider slider slider"
@@ -65,10 +65,7 @@ html {
   grid-area: facit;
   color: hotpink;
 }
-
 .weightedpoints {
+  grid-area: weightedpoints;
   color: powderblue;
 }
-
-
-
