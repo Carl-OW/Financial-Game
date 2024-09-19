@@ -163,7 +163,7 @@ export const Game: React.FC<GameProps> = ({ party }) => {
         <div className="game-complete-container">
           <div className="game-complete-left">
             <h2>{userData.name}!</h2>
-            <p>GameScore: {roundToThree(calculateGameFinalScore())}</p>{" "}
+            <p>Poengsum: {roundToThree(calculateGameFinalScore())}</p>{" "}
           </div>
           <div className="game-complete-right">
             <Leaderboard />
