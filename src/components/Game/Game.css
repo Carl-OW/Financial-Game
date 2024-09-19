@@ -1,0 +1,40 @@
+.game-complete-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-complete-left,
+.game-complete-right {
+  width: 50%;
+  padding: 20px;
+}
+
+.game-complete-left {
+  border-right: 1px solid #ccc;
+  /* Optional: Adds a divider between sections */
+}
+
+.game-complete-right {
+  padding-left: 20px;
+}
+
+.scoreTable {
+  width: 100%;
+  /* Ensure the leaderboard table takes up the full width of its section */
+  border-collapse: collapse;
+}
+
+.scoreTableHeader {
+  background-color: #f1f1f1;
+}
+
+.userLine {
+  text-align: center;
+}
+
+.userName,
+.userEmail,
+.userScore {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
