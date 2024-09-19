@@ -111,7 +111,7 @@ export const Game: React.FC<GameProps> = ({ party }) => {
   };
 
   return (
-    <div className="game-container">
+    <div style={{ height: "100vh" }}>
       {/* Home view where the user can start the game */}
       {view === "home" && (
         <div className="start-game-wrapper">
@@ -173,6 +173,7 @@ const GameMode: React.FC<GameModeProps> = ({ children }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        height: "100%",
       }}
     >
       {children}
