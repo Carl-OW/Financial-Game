@@ -5,7 +5,9 @@ import { getFromLocalStorage } from "../../lib/localStorage";
 const Leaderboard: React.FC = () => {
   // Fetch user data from the correct key in localStorage ('user' instead of 'quiz')
   const users = Object.entries(getFromLocalStorage("user"));
-
+  function roundToThree(num: number): number {
+    return Math.round(num * 1000);
+  }
   return (
     <div>
       <h2 className="leaderboardTitle">Leaderboard</h2>
@@ -23,7 +25,7 @@ const Leaderboard: React.FC = () => {
               .map((user) => (
                 <tr className="userLine" key={user[0]}>
                   <td className="userName">{user[1].name}</td>
-                  <td className="userScore">{user[1].score}</td>
+                  <td className="userScore">{roundToThree(user[1].score)}</td>
                 </tr>
               ))
           ) : (

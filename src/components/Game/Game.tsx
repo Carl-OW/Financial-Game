@@ -108,6 +108,9 @@ export const Game: React.FC<GameProps> = ({ party }) => {
     }
   };
 
+  function roundToThree(num: number): number {
+    return Math.round(num * 1000);
+  }
   // Handle user registration completion
   const handleRegistrationComplete = (userData: GameData, userId: string) => {
     setUserData(userData); // Save the user data
@@ -118,7 +121,7 @@ export const Game: React.FC<GameProps> = ({ party }) => {
   };
 
   return (
-    <div className="game-container">
+    <div style={{ height: "100vh" }}>
       {/* Home view where the user can start the game */}
       {view === "home" && (
         <div className="start-game-wrapper">
@@ -160,7 +163,7 @@ export const Game: React.FC<GameProps> = ({ party }) => {
         <div className="game-complete-container">
           <div className="game-complete-left">
             <h2>{userData.name}!</h2>
-            <p>GameScore: {calculateGameFinalScore()}</p>{" "}
+            <p>GameScore: {roundToThree(calculateGameFinalScore())}</p>{" "}
           </div>
           <div className="game-complete-right">
             <Leaderboard />
@@ -177,5 +180,16 @@ interface GameModeProps {
 }
 
 const GameMode: React.FC<GameModeProps> = ({ children }) => {
-  return <div className="game-mode">{children}</div>;
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100%",
+      }}
+    >
+      {children}
+    </div>
+  );
 };

@@ -7,11 +7,14 @@
 
 /* Grid layout for the form */
 .user-registration-signupForm {
-  padding: 100px;
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: 20px;
   /* Double the padding */
   border-radius: 20px;
   /* Increase the border-radius slightly */
-  display: grid;
+
   row-gap: 30px;
   /* Double the row gap */
   column-gap: 30px;
@@ -31,8 +34,6 @@
   /* Double the font-size */
   border: 2px solid #ddd;
   border-radius: 10px;
-  /* Double the border radius */
-  width: 100%;
 }
 
 /* Label styles */

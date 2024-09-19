@@ -19,7 +19,6 @@
 }
 
 @keyframes nod {
-
   0%,
   100% {
     transform: translateY(0);
@@ -36,7 +35,6 @@
 }
 
 @keyframes shake {
-
   0%,
   100% {
     transform: translateX(0);
@@ -55,21 +53,9 @@
   }
 }
 
-body,
-html {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .quiz-container {
-  width: 590px;
   max-width: 600px;
-  margin: 0 auto;
-  margin-bottom: 200px;
+  margin: 20px;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 12px;
@@ -78,8 +64,16 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   position: relative;
   transition: all 0.1s ease-in-out;
+}
+@media only screen and (max-width: 600px) {
+  .quiz-container {
+    margin: 0;
+    border-radius: 0;
+    top: 0;
+  }
 }
 
 /* Enhanced timer styling */
@@ -166,7 +160,8 @@ p {
   border-color: #ccc !important;
   background-color: #f9f9f9 !important;
   box-shadow: none !important;
-  transition: border-color 0.4s ease, background-color 0.4s ease, box-shadow 0.4s ease;
+  transition: border-color 0.4s ease, background-color 0.4s ease,
+    box-shadow 0.4s ease;
 }
 
 .question-text {

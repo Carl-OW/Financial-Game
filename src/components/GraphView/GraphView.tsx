@@ -63,8 +63,6 @@ export const GraphView = ({
       const t = await fetchData(url);
       window.setTimeout(() => {
         setData(t);
-        // Set background for each question
-        console.log("SET BG", theme);
         setBodyBackground(themeBackgrounds[theme]);
       }, 1000);
     };
@@ -72,7 +70,6 @@ export const GraphView = ({
   }, []);
 
   const setBodyBackground = (backgroundImage: string | null) => {
-    console.log("BGIMG", backgroundImage);
     if (backgroundImage) {
       document.body.style.background = `url(${backgroundImage}) no-repeat center 50px fixed`;
       document.body.style.backgroundSize = "cover";
@@ -160,7 +157,7 @@ export const GraphView = ({
     (data && (
       <div
         style={{
-          maxWidth: "1000px",
+          minWidth: "1000px",
           margin: "24px",
         }}
       >

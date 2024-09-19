@@ -11,7 +11,8 @@ body {
   flex-wrap: wrap;
   height: 75vh;
   /* The container will take 75% of the viewport height */
-  width: 50%;
+  width: 100%;
+  max-width: 1000;
   /* Set the width to 50% */
   margin: 0 auto;
   /* Center the container horizontally */
@@ -63,7 +64,6 @@ body {
 
 /* For smaller screens: make left and right sections stack vertically */
 @media (max-width: 768px) {
-
   .game-complete-left,
   .game-complete-right {
     width: 100%;
@@ -120,6 +120,12 @@ body {
   margin: 0 auto;
 }
 
+@media only screen and (max-width: 600px) {
+  .start-game {
+    font-size: 3rem;
+  }
+}
+
 .start-game:hover {
   animation: breathe 1.5s infinite;
 }
@@ -147,5 +153,4 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100vw;
 }

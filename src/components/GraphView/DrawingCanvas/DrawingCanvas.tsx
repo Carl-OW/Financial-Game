@@ -1,4 +1,4 @@
-import React, { useRef, useState, MouseEvent } from "react";
+import React, { useRef, useState, MouseEvent, TouchEvent } from "react";
 import styles from "./DrawingCanvas.module.scss";
 
 interface Position {
@@ -21,25 +21,43 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
 
   const isDrawing = useRef<boolean>(false);
 
-  // Start drawing when mouse is pressed
-  const startDrawing = (e: MouseEvent<HTMLCanvasElement>) => {
+  // Start drawing when mouse or touch is pressed
+  const startDrawing = (
+    e: MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>
+  ) => {
+    if ("touches" in e) {
+      e.preventDefault();
+    }
     isDrawing.current = true;
     draw(e);
   };
 
-  // Stop drawing when mouse is released or moved out of canvas
-  const stopDrawing = () => {
-    isDrawing.current = false;
-    const ctx = canvasRef.current?.getContext("2d");
-    ctx?.beginPath();
+  // Stop drawing when mouse or touch is released or moved out of canvas
+  const stopDrawing = (
+    e: MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>
+  ) => {
+    if (isDrawing.current) {
+      isDrawing.current = false;
+      const ctx = canvasRef.current?.getContext("2d");
+      ctx?.beginPath();
+      if ("touches" in e) {
+        e.preventDefault();
+      }
+    }
   };
 
   // Draw on the canvas
-  const draw = (e: MouseEvent<HTMLCanvasElement>) => {
+  const draw = (
+    e: MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>
+  ) => {
     if (!drawingMode) {
       return;
     }
     if (!isDrawing.current) return;
+
+    if ("touches" in e) {
+      e.preventDefault();
+    }
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -48,8 +66,15 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
     if (!ctx) return;
 
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    let x: number, y: number;
+
+    if ("touches" in e) {
+      x = e.touches[0].clientX - rect.left;
+      y = e.touches[0].clientY - rect.top;
+    } else {
+      x = e.clientX - rect.left;
+      y = e.clientY - rect.top;
+    }
 
     ctx.lineWidth = 4;
     ctx.lineCap = "round";
@@ -114,11 +139,15 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
           position: "absolute",
           top: "0",
           right: "0",
+          touchAction: "none", // Prevents default touch behaviors like scrolling
         }}
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={stopDrawing}
         onMouseOut={stopDrawing}
+        onTouchStart={startDrawing}
+        onTouchMove={draw}
+        onTouchEnd={stopDrawing}
       />
       {drawingMode && (
         <div style={{ top: 0, left: 0, position: "absolute", display: "flex" }}>

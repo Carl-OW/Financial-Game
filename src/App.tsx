@@ -1,8 +1,8 @@
 import ReactConfetti from "react-confetti";
-import "./App.css";
 // import Game from "./components/Game/Game"; // Commented out Game component
 import { DevNavBar } from "./components/DevNavBar/DevNavBar"; // Import DevNavBar
 import React from "react";
+import styles from "./App.module.scss";
 
 function App() {
   const [showConfetti, setShowConfetti] = React.useState<boolean>(false);
@@ -17,7 +17,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className={styles.app}>
       {showConfetti && <ReactConfetti />}
       {/* <Game /> */} {/* Commented out Game component */}
       <DevNavBar party={party} /> {/* Render DevNavBar instead */}
