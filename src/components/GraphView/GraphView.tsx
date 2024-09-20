@@ -53,6 +53,7 @@ export const GraphView = ({
         setSeconds((prevSeconds) => prevSeconds - 1);
       }, 1000);
       setTimeout(() => {
+        setBodyBackground(null); // Remove the background when graph is done
         onGraphComplete(calculatedScore); // Pass the score to the parent component (Game.tsx)
       }, 2950);
     }
