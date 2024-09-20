@@ -31,7 +31,14 @@ const NumberGuess: React.FC<NumberGuessProps> = ({ onNumberGuessEnd }) => {
     getRandomQuestionsFromEachTheme(numberData.numberData, 4)
   ); // Get 4 unique random questions
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [value, setValue] = useState(questions[0].preselectedValue); // Set initial slider value
+
+  // Calculate the midpoint of the slider based on min and max values
+  const getMiddleValue = (min: number, max: number) =>
+    Math.round((min + max) / 2);
+
+  const [value, setValue] = useState(
+    getMiddleValue(questions[0].minimumValue, questions[0].maximumValue)
+  ); // Set initial slider value to middle
   const [showAnswer, setShowAnswer] = useState(false);
   const [disableSlider, setDisableSlider] = useState(false);
   const [valuePosition, setValuePosition] = useState(0); // Store the position of the value
@@ -41,13 +48,19 @@ const NumberGuess: React.FC<NumberGuessProps> = ({ onNumberGuessEnd }) => {
   const sliderRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Update when currentQuestionIndex changes
+    // Get the current question
     const currentQuestion = questions[currentQuestionIndex];
-    setValue(currentQuestion.preselectedValue); // Reset slider value for the new question
+
+    // Reset the slider to the middle value for the new question
+    const middleValue = getMiddleValue(
+      currentQuestion.minimumValue,
+      currentQuestion.maximumValue
+    );
+    setValue(middleValue); // Set slider value to the middle
     setShowAnswer(false);
     setDisableSlider(false);
     setSliderMoved(false);
-    updateValuePosition(currentQuestion.preselectedValue); // Reset slider position
+    updateValuePosition(middleValue); // Reset slider position
   }, [currentQuestionIndex, questions]);
 
   // Reveal the correct answer and disable the slider
