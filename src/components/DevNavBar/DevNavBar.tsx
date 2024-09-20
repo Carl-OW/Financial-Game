@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import { GraphView } from "../GraphView/GraphView";
-import UserRegistration from "../UserRegistration/UserRegistration";
-import Leaderboard from "../Leaderboard/Leaderboard";
-import Admin from "../Admin/Admin";
-import { Game } from "../Game/Game";
-import NumberGuess from "../NumberGuess/NumberGuess";
-import numberData from "../NumberGuess/numberData.json";
-import { graphEntries } from "../GraphView/db/db";
-import { shuffleArray } from "../GraphView/GraphService";
-import styles from "./DevNavBar.module.scss";
+import React, { useState } from 'react';
+import { GraphView } from '../GraphView/GraphView';
+import UserRegistration from '../UserRegistration/UserRegistration';
+import Leaderboard from '../Leaderboard/Leaderboard';
+import Admin from '../Admin/Admin';
+import { Game } from '../Game/Game';
+import NumberGuess from '../NumberGuess/NumberGuess';
+import { graphEntries } from '../GraphView/db/db';
+import { shuffleArray } from '../GraphView/GraphService';
+import styles from './DevNavBar.module.scss';
 
 const shuffledGraphViews = shuffleArray(graphEntries);
 
@@ -19,15 +18,15 @@ type DevNavBarProps = {
 export const DevNavBar: React.FC<DevNavBarProps> = ({ party }) => {
   const [view, setView] = useState<string | null>(null);
 
-  const isDev = window.location.href.indexOf("dev=true") > -1;
-  const goToAdmin = window.location.href.indexOf("admin") > -1;
+  const isDev = window.location.href.indexOf('dev=true') > -1;
+  const goToAdmin = window.location.href.indexOf('admin') > -1;
 
   if (goToAdmin) {
-    if (view !== "Admin") setView("Admin");
+    if (view !== 'Admin') setView('Admin');
   }
 
   if (!view) {
-    setView("Game");
+    setView('Game');
   }
 
   const handleClick = (selectedView: string) => {
@@ -37,42 +36,42 @@ export const DevNavBar: React.FC<DevNavBarProps> = ({ party }) => {
   // Fantastic 🧑‍🍳😙🤌
   const reset = () => {
     if (isDev) {
-      window.location.href = "/?dev=true";
+      window.location.href = '/?dev=true';
       return;
     }
-    window.location.href = "/";
+    window.location.href = '/';
   };
 
   return (
     <>
       <button
         onClick={reset}
-        style={{ position: "absolute", top: 10, right: 10 }}
+        style={{ position: 'absolute', top: 10, right: 10 }}
       >
         Reset
       </button>
       {/* Only render the navbar if no view is selected */}
       {isDev && (
-        <div style={{ position: "absolute", bottom: "20px" }}>
-          <button onClick={() => handleClick("graphview")}>Graph View</button>
-          <button onClick={() => handleClick("quizview")}>Quiz View</button>
-          <button onClick={() => handleClick("numberview")}>
+        <div style={{ position: 'absolute', bottom: '20px' }}>
+          <button onClick={() => handleClick('graphview')}>Graph View</button>
+          <button onClick={() => handleClick('quizview')}>Quiz View</button>
+          <button onClick={() => handleClick('numberview')}>
             Number Guesser View
           </button>
-          <button onClick={() => handleClick("UserRegistration")}>
+          <button onClick={() => handleClick('UserRegistration')}>
             User Registration
           </button>
-          <button onClick={() => handleClick("Leaderboard")}>
+          <button onClick={() => handleClick('Leaderboard')}>
             Leaderboard
           </button>
-          <button onClick={() => handleClick("Admin")}>Admin</button>
-          <button onClick={() => handleClick("Game")}>Game</button>
+          <button onClick={() => handleClick('Admin')}>Admin</button>
+          <button onClick={() => handleClick('Game')}>Game</button>
         </div>
       )}
 
       {/* Render the selected view */}
       <div className={styles.viewContainer}>
-        {view === "graphview" && (
+        {view === 'graphview' && (
           <GraphView
             theme={shuffledGraphViews[0].theme}
             onGraphComplete={() => {}}
@@ -81,11 +80,13 @@ export const DevNavBar: React.FC<DevNavBarProps> = ({ party }) => {
             url={shuffledGraphViews[0].savedQuery}
           />
         )}
-        {view === "numberview" && <NumberGuess {...numberData.numberData[0]} />}
-        {view === "UserRegistration" && <UserRegistration />}
-        {view === "Leaderboard" && <Leaderboard />}
-        {view === "Admin" && <Admin />}
-        {view === "Game" && <Game party={party} />}
+        {view === 'numberview' && <NumberGuess onNumberGuessEnd={() => {}} />}
+        {view === 'UserRegistration' && (
+          <UserRegistration onRegistrationComplete={() => {}} />
+        )}
+        {view === 'Leaderboard' && <Leaderboard />}
+        {view === 'Admin' && <Admin />}
+        {view === 'Game' && <Game party={party} />}
       </div>
     </>
   );

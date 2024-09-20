@@ -1,19 +1,19 @@
-import DrawingCanvas from "./DrawingCanvas/DrawingCanvas";
-import Graph from "./Graph/Graph";
-import styles from "./graphview.module.scss";
-import React from "react";
-import { fetchData, ParsedData } from "./GraphService";
-import { ClimbingBoxLoader } from "react-spinners";
+import DrawingCanvas from './DrawingCanvas/DrawingCanvas';
+import Graph from './Graph/Graph';
+import styles from './graphview.module.scss';
+import React from 'react';
+import { fetchData, ParsedData } from './GraphService';
+import { ClimbingBoxLoader } from 'react-spinners';
 
 const themeBackgrounds: { [key: string]: string } = {
-  Befolkning: "/footer/footer_theme_befolkning.png",
-  Utdanning: "/footer/footer_theme_utdanning.png",
-  Arbeid: "/footer/footer_theme_arbeid.png",
-  Inntekt: "/footer/footer_theme_inntekt.png",
-  Helse: "/footer/footer_theme_helse.png",
-  Miljø: "/footer/footer_theme_miljo.png",
-  Økonomi: "/footer/footer_theme_okonomi.png",
-  Priser: "/footer/footer_theme_priser.png",
+  Befolkning: '/footer/footer_theme_befolkning.png',
+  Utdanning: '/footer/footer_theme_utdanning.png',
+  Arbeid: '/footer/footer_theme_arbeid.png',
+  Inntekt: '/footer/footer_theme_inntekt.png',
+  Helse: '/footer/footer_theme_helse.png',
+  Miljø: '/footer/footer_theme_miljo.png',
+  Økonomi: '/footer/footer_theme_okonomi.png',
+  Priser: '/footer/footer_theme_priser.png',
 };
 
 export const GraphView = ({
@@ -35,6 +35,8 @@ export const GraphView = ({
   const [referenceGraph, setReferenceGraph] = React.useState<number[][] | null>(
     null
   );
+
+  console.log(score);
 
   const [seconds, setSeconds] = React.useState<number>(3);
 
@@ -72,9 +74,9 @@ export const GraphView = ({
   const setBodyBackground = (backgroundImage: string | null) => {
     if (backgroundImage) {
       document.body.style.background = `url(${backgroundImage}) no-repeat center 50px fixed`;
-      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundSize = 'cover';
     } else {
-      document.body.style.background = "";
+      document.body.style.background = '';
     }
   };
 
@@ -122,7 +124,7 @@ export const GraphView = ({
 
       // Calculate intersection and union
       const intersection = new Set<number>();
-      for (let y of yPositions1) {
+      for (const y of yPositions1) {
         if (yPositions2.has(y)) {
           intersection.add(y);
         }
@@ -157,11 +159,11 @@ export const GraphView = ({
     (data && (
       <div
         style={{
-          minWidth: "1000px",
-          margin: "24px",
+          minWidth: '1000px',
+          margin: '24px',
         }}
       >
-        <h2 style={{ color: "#1a9d49" }}>{question}</h2>
+        <h2 style={{ color: '#1a9d49' }}>{question}</h2>
         <p>{indicator}</p>
         <div className={styles.graphArea}>
           <div className={styles.graph}>
@@ -177,13 +179,13 @@ export const GraphView = ({
           {showCountdown && (
             <div
               style={{
-                position: "absolute",
-                left: "50px",
-                border: "1px solid black",
-                padding: "8px",
-                margin: "8px",
-                lineHeight: "8px",
-                backgroundColor: "white",
+                position: 'absolute',
+                left: '50px',
+                border: '1px solid black',
+                padding: '8px',
+                margin: '8px',
+                lineHeight: '8px',
+                backgroundColor: 'white',
               }}
             >
               <h3>Neste graf kommer om {seconds} sekunder</h3>

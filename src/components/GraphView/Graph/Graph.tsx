@@ -1,5 +1,5 @@
-import React from "react";
-import { Line } from "react-chartjs-2";
+import React from 'react';
+import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,7 +9,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
+} from 'chart.js';
 
 // Register the required chart.js components
 ChartJS.register(
@@ -34,7 +34,7 @@ type GraphProps = {
 };
 
 const Graph: React.FC<GraphProps> = ({ data, heightChange, onRendered }) => {
-  const chartRef = React.useRef(null);
+  const chartRef: React.MutableRefObject<any> = React.useRef(null);
   const minimalChartRef = React.useRef<HTMLCanvasElement | null>(null);
 
   React.useEffect(() => {
@@ -53,8 +53,8 @@ const Graph: React.FC<GraphProps> = ({ data, heightChange, onRendered }) => {
     datasets: [
       {
         data: data.map((point) => point.value), // Y-axis values
-        borderColor: "#00824d", // Line color
-        backgroundColor: "rgba(75, 192, 192, 0.2)", // Area under the line
+        borderColor: '#00824d', // Line color
+        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Area under the line
         borderWidth: 2, // Line width
         fill: true, // Fill the area under the line
       },
@@ -69,7 +69,7 @@ const Graph: React.FC<GraphProps> = ({ data, heightChange, onRendered }) => {
       return null;
     }
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
 
     if (!ctx) {
       return null;
@@ -162,7 +162,7 @@ const Graph: React.FC<GraphProps> = ({ data, heightChange, onRendered }) => {
 
   return (
     <>
-      <div style={{ width: "800px", height: "400px" }}>
+      <div style={{ width: '800px', height: '400px' }}>
         <Line
           ref={chartRef}
           height={400}
@@ -173,20 +173,20 @@ const Graph: React.FC<GraphProps> = ({ data, heightChange, onRendered }) => {
       </div>
       <div
         style={{
-          position: "absolute",
-          width: "800px",
-          top: "500px",
-          left: "0px",
+          position: 'absolute',
+          width: '800px',
+          top: '500px',
+          left: '0px',
         }}
       >
         {/* Minimal chart, just the line */}
         <div
           style={{
-            border: "1px solid black",
-            width: "800px",
-            height: "400px",
-            marginTop: "20px",
-            display: "none",
+            border: '1px solid black',
+            width: '800px',
+            height: '400px',
+            marginTop: '20px',
+            display: 'none',
           }}
         >
           <Line
