@@ -50,7 +50,7 @@
       "questionText": "Hvor mye steg gjennomsnittlig årslønn for hele økonomien? (2022-2023)",
       "format": "Prosent",
       "correctAnswer": 5.2,
-      "minimumValue": 10.0,
+      "minimumValue": 0,
       "preselectedValue": 0.0,
       "maximumValue": 100.0
     },
@@ -71,15 +71,6 @@
       "minimumValue": 20.0,
       "preselectedValue": 60.0,
       "maximumValue": 100.0
-    },
-    {
-      "theme": "Utdanning",
-      "questionText": "Gjennomsnittlig standpunktkarakter i norsk hovedmål på 10.trinn? (2024)",
-      "format": "Poeng",
-      "correctAnswer": 3.9,
-      "minimumValue": 1.0,
-      "preselectedValue": 3.5,
-      "maximumValue": 6.0
     },
     {
       "theme": "Arbeid",

@@ -145,20 +145,29 @@ const NumberGuess: React.FC<NumberGuessProps> = ({ onNumberGuessEnd }) => {
           <span className="max-value">{currentQuestion.maximumValue}</span>
         </div>
 
-        {sliderMoved && !showAnswer && (
-          <button className="reveal" onClick={reveal}>
-            Svar
-          </button>
-        )}
+        <div className="reveal-container">
+          {sliderMoved && (
+            <button
+              className={`reveal ${sliderMoved ? "show" : ""}`}
+              onClick={reveal}
+            >
+              Svar
+            </button>
+          )}
+        </div>
 
-        {showAnswer && (
-          <>
-            <h2 className="user-answer">Ditt Svar: {value}%</h2>
-            <h2 className="correct-answer">
-              Riktig svar: {currentQuestion.correctAnswer}%
-            </h2>
-          </>
-        )}
+        <div className="answer-container">
+          {showAnswer && (
+            <>
+              <h2 className={`user-answer ${showAnswer ? "show" : ""}`}>
+                Ditt Svar: {value}%
+              </h2>
+              <h2 className={`correct-answer ${showAnswer ? "show" : ""}`}>
+                Riktig svar: {currentQuestion.correctAnswer}%
+              </h2>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
