@@ -51,7 +51,7 @@
       "format": "Prosent",
       "correctAnswer": 5.2,
       "minimumValue": -10,
-      "preselectedValue": 0.0,
+      "preselectedValue": 5,
       "maximumValue": 10.0
     },
     {
@@ -59,9 +59,9 @@
       "questionText": "Hvor mye steg prisene siste 12 måneder? (August 2023-august 2024)",
       "format": "Prosent",
       "correctAnswer": 2.6,
-      "minimumValue": 10.0,
+      "minimumValue": 0.0,
       "preselectedValue": 0.0,
-      "maximumValue": 100.0
+      "maximumValue": 10.0
     },
     {
       "theme": "Befolkning",
@@ -119,7 +119,7 @@
     },
     {
       "theme": "Priser",
-      "questionText": "Hvor mye har prisene på brukte boliger steget siste 8 år? (2015–2023)",
+      "questionText": "Hvor mye har prisene på brukte boliger steget siste 8 år? (2015-2023)",
       "format": "Prosent",
       "correctAnswer": 40.8,
       "minimumValue": 0.0,
