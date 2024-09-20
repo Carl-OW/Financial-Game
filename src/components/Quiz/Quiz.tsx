@@ -57,7 +57,7 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
   const [randomizedOptions, setRandomizedOptions] = useState<
     [string, string][]
   >([]);
-  const [timer, setTimer] = useState(10);
+  const [timer, setTimer] = useState(20);
   const [startTime, setStartTime] = useState<number>(Date.now());
   const [totalTimeSpent, setTotalTimeSpent] = useState(0); // Track total time spent
   const [correctAnswers, setCorrectAnswers] = useState(0); // Track correct answers
@@ -141,7 +141,7 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
     }
 
     const elapsedTime = (Date.now() - startTime) / 1000;
-    const remainingTime = 10 - elapsedTime;
+    const remainingTime = 20 - elapsedTime;
     calculateScore(remainingTime, isCorrect);
     logTimeSpent(remainingTime, elapsedTime, isCorrect);
     setTotalTimeSpent((prevTime) => prevTime + elapsedTime);
@@ -218,7 +218,7 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
         setSelectedOption(null);
         setFeedbackClass(null);
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-        setTimer(10);
+        setTimer(20);
         setStartTime(Date.now());
 
         // Remove the reset class after moving to the next question
