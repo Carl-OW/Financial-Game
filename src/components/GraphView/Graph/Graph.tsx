@@ -35,7 +35,7 @@ type GraphProps = {
 
 const Graph: React.FC<GraphProps> = ({ data, heightChange, onRendered }) => {
   const chartRef: React.MutableRefObject<any> = React.useRef(null);
-  const minimalChartRef = React.useRef<HTMLCanvasElement | null>(null);
+  const minimalChartRef = React.useRef<any>(null);
 
   React.useEffect(() => {
     const chart = chartRef.current?.chartInstance ?? chartRef.current;
