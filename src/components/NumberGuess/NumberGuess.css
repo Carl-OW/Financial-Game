@@ -1,8 +1,11 @@
-/* Container with fixed width and height */
+/* Container with larger width and height */
 .fixed-container {
-  width: 400px;
-  height: 600px;
-  padding: 20px;
+  width: 600px;
+  /* Increased width */
+  height: 800px;
+  /* Increased height */
+  padding: 40px;
+  /* Increased padding */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -21,28 +24,34 @@
 }
 
 .theme {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+  font-size: 2rem;
+  /* Increased font size */
+  margin-bottom: 15px;
+  /* Increased margin */
 }
 
 .question {
-  font-size: 1.2rem;
-  margin-bottom: 15px;
+  font-size: 1.6rem;
+  /* Increased font size */
+  margin-bottom: 20px;
+  /* Increased margin */
 }
 
 .slider-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  /* Increased margin */
   position: relative;
-  height: 60px;
-  /* Fixed height for the slider section */
+  height: 80px;
+  /* Increased height for the slider section */
 }
 
 .slider-wrapper {
   position: relative;
-  width: 80%;
+  width: 90%;
+  /* Increased width */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,149 +59,127 @@
 
 .slider {
   width: 100%;
-  height: 12px;
+  height: 18px;
   /* Increased thickness */
   background-color: #28a745;
-  /* Solid green color for the slider */
-  border-radius: 6px;
-  /* Round the edges */
+  border-radius: 8px;
+  /* Increased roundness */
   outline: none;
-  /* Remove default outline */
   -webkit-appearance: none;
-  /* Remove default appearance on webkit browsers */
   appearance: none;
-  /* Remove default appearance on modern browsers */
 }
 
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  /* Remove default thumb */
   appearance: none;
-  /* Remove default thumb */
-  width: 24px;
-  /* Make the thumb larger */
-  height: 24px;
-  /* Square thumb */
+  width: 32px;
+  /* Larger thumb */
+  height: 32px;
+  /* Larger thumb */
   background-color: #fff;
-  /* White color for the thumb */
-  border: 2px solid #28a745;
-  /* Add a border matching the slider track */
+  border: 3px solid #28a745;
   border-radius: 50%;
-  /* Make the thumb circular */
   cursor: pointer;
-  /* Change cursor to pointer */
 }
 
-.slider::-moz-range-thumb {
-  width: 24px;
-  /* Make the thumb larger */
-  height: 24px;
-  /* Square thumb */
-  background-color: #fff;
-  /* White color for the thumb */
-  border: 2px solid #28a745;
-  /* Add a border matching the slider track */
-  border-radius: 50%;
-  /* Make the thumb circular */
-  cursor: pointer;
-  /* Change cursor to pointer */
-}
-
+.slider::-moz-range-thumb,
 .slider::-ms-thumb {
-  width: 24px;
-  /* Make the thumb larger */
-  height: 24px;
-  /* Square thumb */
+  width: 32px;
+  /* Larger thumb */
+  height: 32px;
   background-color: #fff;
-  /* White color for the thumb */
-  border: 2px solid #28a745;
-  /* Add a border matching the slider track */
+  border: 3px solid #28a745;
   border-radius: 50%;
-  /* Make the thumb circular */
   cursor: pointer;
-  /* Change cursor to pointer */
 }
 
 .slider-value {
   position: absolute;
-  top: 30px;
-  /* Position the value below the slider */
+  top: 40px;
+  /* Adjusted position */
   transform: translateX(-50%);
-  /* Center the value */
   background-color: #28a745;
-  /* Green background for the value */
   color: white;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  padding: 4px 12px;
+  /* Increased padding */
+  border-radius: 6px;
+  font-size: 1.2rem;
+  /* Increased font size */
 }
 
 .min-value,
 .max-value {
-  font-size: 1rem;
-  width: 40px;
+  font-size: 1.5rem;
+  /* Increased font size */
+  width: 50px;
 }
 
 /* Green color for the user's answer */
 .user-answer {
   color: #28a745;
-  font-size: 1.2rem;
-  margin-top: 10px;
+  font-size: 1.6rem;
+  /* Increased font size */
+  margin-top: 15px;
+  /* Increased margin */
 }
 
 /* Lighter green color for the correct answer */
 .correct-answer {
-    color: #1b8a35;
-  font-size: 1.2rem;
-  margin-top: 5px;
+  color: #1b8a35;
+  font-size: 1.6rem;
+  /* Increased font size */
+  margin-top: 10px;
+  /* Increased margin */
 }
 
 .reveal-container {
-  /* Set a fixed height for the container to reserve space */
-  height: 60px;
-  /* Adjust as necessary to ensure space is reserved */
+  height: 80px;
+  /* Increased height */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .reveal {
-  padding: 10px 20px;
+  padding: 15px 30px;
+  /* Increased padding */
   background-color: #28a745;
   color: white;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
-  height: 50px;
-  /* Ensure the button has a fixed height */
+  font-size: 1.4rem;
+  /* Increased font size */
+  height: 60px;
+  /* Larger button */
   display: none;
-  /* Initially hidden */
 }
 
 .reveal.show {
   display: block;
-  /* Show the button when necessary */
 }
 
 .facit,
 .weightedpoints {
-  margin-top: 10px;
-  font-size: 1.2rem;
+  margin-top: 15px;
+  font-size: 1.5rem;
+  /* Increased font size */
 }
 
 .next {
-  margin-top: 10px;
-  padding: 10px 20px;
+  margin-top: 15px;
+  padding: 15px 30px;
+  /* Increased padding */
   background-color: #28a745;
   color: white;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.4rem;
+  /* Increased font size */
 }
 
 .answer-container {
-  min-height: 60px;
-  /* Reserve space for the answers */
+  min-height: 80px;
+  /* Increased height to reserve more space */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -202,13 +189,10 @@
 .user-answer,
 .correct-answer {
   opacity: 0;
-  /* Start hidden */
   transition: opacity 0.3s ease-in;
-  /* Smooth transition */
 }
 
 .user-answer.show,
 .correct-answer.show {
   opacity: 1;
-  /* Show the answers with a smooth transition */
 }
