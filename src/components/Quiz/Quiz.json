@@ -129,7 +129,7 @@
       "theme": "Inntekt",
       "questions": [
         {
-          "question": "Hva er median inntekt etter skatt for hosholdninger? (2022)",
+          "question": "Hva er median inntekt etter skatt for husholdninger? (2022)",
           "options": {
             "a": "280 200",
             "b": "590 400",
