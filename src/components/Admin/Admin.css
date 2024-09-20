@@ -1,3 +1,9 @@
-.adminWrapper {
-  color: hotpink;
+.savebutton {
+  background-color: lightgreen;
+}
+.downloadbutton {
+  background-color: lightblue;
+}
+.nukebutton {
+  background-color: lightcoral;
 }
