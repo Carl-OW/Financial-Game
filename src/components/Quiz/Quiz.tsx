@@ -194,6 +194,18 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
     const nextRoundCount = roundCount + 1;
     setRoundCount(nextRoundCount);
 
+    // Stop after 3 rounds
+    if (nextRoundCount >= 3) {
+      const finalScore = calculateFinalScore();
+      setQuizEnded(true);
+
+      const scoreObject = { "Quiz Score": finalScore };
+      console.log(scoreObject);
+
+      onQuizEnd(scoreObject);
+      return; // Stop further execution after 3 rounds
+    }
+
     // Apply reset class to remove feedback before moving to the next question
     const allOptions = document.querySelectorAll(".option");
     allOptions.forEach((option) => {
@@ -219,12 +231,6 @@ const Quiz: React.FC<QuizProps> = ({ onQuizEnd }) => {
       setQuizEnded(true);
 
       const scoreObject = { "Quiz Score": finalScore };
-      console.log(scoreObject);
-
-      // Print out the total time spent and correct answers in the console
-      console.log(`Total Time Spent: ${totalTimeSpent.toFixed(2)} seconds`);
-      console.log(`Correct Answers: ${correctAnswers}`);
-
       onQuizEnd(scoreObject);
     }
   };

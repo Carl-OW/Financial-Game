@@ -73,7 +73,8 @@ const NumberGuess: React.FC<NumberGuessProps> = ({ onNumberGuessEnd }) => {
     const score = calculateWeightedScore(currentQuestion.correctAnswer, value);
     setTotalScore((prevScores) => [...prevScores, score]);
 
-    if (currentQuestionIndex + 1 < questions.length) {
+    if (currentQuestionIndex + 1 < 2) {
+      // Run only two times
       // Move to the next question after 3 seconds
       setTimeout(() => {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -82,6 +83,8 @@ const NumberGuess: React.FC<NumberGuessProps> = ({ onNumberGuessEnd }) => {
       // Calculate the final score after all questions
       const total = [...totalScore, score];
       const final = total.reduce((sum, val) => sum + val, 0) / total.length; // Average score
+
+      // Ensure final score is passed back to Game.tsx after 2 runs
       onNumberGuessEnd(final); // Pass the final score back to Game.tsx
     }
   };

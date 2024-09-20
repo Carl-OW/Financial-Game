@@ -59,9 +59,9 @@
       "questionText": "Hvor mye steg prisene siste 12 måneder? (August 2023-august 2024)",
       "format": "Prosent",
       "correctAnswer": 2.6,
-      "minimumValue": 10.0,
+      "minimumValue": -10,
       "preselectedValue": 0.0,
-      "maximumValue": 100.0
+      "maximumValue": 10
     },
     {
       "theme": "Befolkning",
@@ -105,7 +105,7 @@
       "format": "Prosent",
       "correctAnswer": 73.0,
       "minimumValue": 0.0,
-      "preselectedValue": 150.0,
+      "preselectedValue": 50.0,
       "maximumValue": 100.0
     },
     {

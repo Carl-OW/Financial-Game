@@ -30,7 +30,7 @@ export const Game: React.FC<GameProps> = ({ party }) => {
   // State to control GraphView reruns and scores
   const [graphScores, setGraphScores] = useState<number[]>([]); // Array to store graph scores
   const [graphRunCount, setGraphRunCount] = useState(0); // Track the current run
-  const graphTotalRuns = 3; // Define how many times GraphView will run
+  const graphTotalRuns = 2; // Define how many times GraphView will run
 
   // New state to control game mode steps, including number guess
   const [gameModeStep, setGameModeStep] = useState<
